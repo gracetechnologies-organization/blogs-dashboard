@@ -13,13 +13,13 @@
 
                  <a href="javascript:void(0);"
                      class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-                     <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                     <i class="align-middle bx bx-chevron-left bx-sm"></i>
                  </a>
              </div>
 
              <div class="menu-inner-shadow"></div>
 
-             <ul class="menu-inner py-1">
+             <ul class="py-1 menu-inner">
                  <!-- Dashboard -->
                  <li class="menu-item @if (Route::current()->uri == 'emp/dashboard') active @endif">
                      <a href="{{ route('emp.index') }}" class="menu-link">
@@ -37,6 +37,12 @@
                      <ul class="menu-inner menu-sub-items" style="display:none;">
                         <li class="menu-item ms-4  @if (Route::current()->uri == 'emp/exercises/active') active @endif">
                             <a href="{{ route('emp.exercises.active') }}" class="menu-link">
+                               <i class="menu-icon fa-solid fa-pen-nib fa-beat-fade"></i>
+                                <div data-i18n="Analytics">Create</div>
+                            </a>
+                        </li>
+                        <li class="menu-item ms-4  @if (Route::current()->uri == 'blog/create') active @endif">
+                            <a href="{{ route('blogs.create') }}" class="menu-link">
                                <i class="menu-icon fa-solid fa-pen-nib fa-beat-fade"></i>
                                 <div data-i18n="Analytics">Create</div>
                             </a>
@@ -71,22 +77,22 @@
              <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                  id="layout-navbar">
                  <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-                     <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                     <a class="px-0 nav-item nav-link me-xl-4" href="javascript:void(0)">
                          <i class="bx bx-menu bx-sm"></i>
                      </a>
                  </div>
 
                  <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                     <h1 class="fw-bold mt-3 col-11 text-center h-custom">
+                     <h1 class="mt-3 text-center fw-bold col-11 h-custom">
                          GRACE <span class="text-black-custom">TECHNOLOGIES</span>
                      </h1>
-                     <ul class="navbar-nav flex-row align-items-center ms-auto">
+                     <ul class="flex-row navbar-nav align-items-center ms-auto">
                          <!-- User -->
                          <li class="nav-item navbar-dropdown dropdown-user dropdown">
                              <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                  data-bs-toggle="dropdown">
                                  <div class="avatar avatar-online">
-                                     <i class="fa-solid fa-user-secret fa-2xl mt-3"></i>
+                                     <i class="mt-3 fa-solid fa-user-secret fa-2xl"></i>
                                  </div>
                              </a>
                              <ul class="dropdown-menu dropdown-menu-end">
@@ -135,7 +141,7 @@
              </nav>
              <div class="content-wrapper">
                  @if (session()->has('error'))
-                     <div class="bs-toast toast toast-placement-ex m-2 fade bg-danger top-0 end-0 show" role="alert"
+                     <div class="top-0 m-2 bs-toast toast toast-placement-ex fade bg-danger end-0 show" role="alert"
                          aria-live="assertive" aria-atomic="true" data-delay="2000">
                          <div class="toast-header">
                              <i class="bx bx-bell me-2"></i>
@@ -149,7 +155,7 @@
                      </div>
                  @endif
                  @if (session()->has('success'))
-                     <div class="bs-toast toast toast-placement-ex m-2 fade bg-success top-0 end-0 show"
+                     <div class="top-0 m-2 bs-toast toast toast-placement-ex fade bg-success end-0 show"
                          role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
                          <div class="toast-header">
                              <i class="bx bx-bell me-2"></i>
