@@ -23,11 +23,13 @@
 <link rel="stylesheet" href="{{ asset('dashboard/vendor/libs/apex-charts/apex-charts.css') }}" />
 <!-- Pages CSS -->
 <link rel="stylesheet" href="{{ asset('dashboard/vendor/css/pages/page-auth.css') }}" />
-<!-- Custom CSS -->
-@if (Auth::user()->role_id === 'admin')
+
+<!-- Custom CSS For Grid-->
+{{--  @if (Auth::user()->role_id === 'admin')  --}}
     <link rel="stylesheet" href="{{ asset('dashboard/css/custom-styles.css') }}">
-@endif
+{{--  @endif  --}}
 <!-- Helpers -->
+
 <script src="{{ asset('dashboard/vendor/js/helpers.js') }}"></script>
 <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js')}} in the <head> section -->
 <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->

@@ -35,36 +35,48 @@
                          <i class="fa-solid fa-angle-down ms-auto"></i>
                      </a>
                      <ul class="menu-inner menu-sub-items" style="display:none;">
-                        <li class="menu-item ms-4  @if (Route::current()->uri == 'emp/exercises/active') active @endif">
-                            <a href="{{ route('emp.exercises.active') }}" class="menu-link">
-                               <i class="menu-icon fa-solid fa-pen-nib fa-beat-fade"></i>
-                                <div data-i18n="Analytics">Create</div>
-                            </a>
-                        </li>
                         <li class="menu-item ms-4  @if (Route::current()->uri == 'blog/create') active @endif">
                             <a href="{{ route('blogs.create') }}" class="menu-link">
                                <i class="menu-icon fa-solid fa-pen-nib fa-beat-fade"></i>
                                 <div data-i18n="Analytics">Create</div>
                             </a>
                         </li>
-                         <li class="menu-item ms-4  @if (Route::current()->uri == 'emp/exercises/active') active @endif">
-                             <a href="{{ route('emp.exercises.active') }}" class="menu-link">
-                                <i class="menu-icon fa-regular fa-eye-slash fa-beat-fade"></i>
-                                 <div data-i18n="Analytics">Unpublished</div>
-                             </a>
-                         </li>
-                         <li class="menu-item ms-4 @if (Route::current()->uri == 'emp/exercises/archived') active @endif">
-                             <a href="{{ route('emp.exercises.archived') }}" class="menu-link">
-                                 <i class="menu-icon fa-regular fa-eye fa-beat-fade"></i>
-                                 <div data-i18n="Analytics">Published</div>
-                             </a>
-                         </li>
-                         <li class="menu-item ms-4 @if (Route::current()->uri == 'emp/exercises/archived') active @endif">
-                            <a href="{{ route('emp.exercises.archived') }}" class="menu-link">
+                        <li class="menu-item ms-4  @if (Route::current()->uri == 'blog/un-published') active @endif">
+                            <a href="{{ route('blogs.unpublished') }}" class="menu-link">
+                               <i class="menu-icon fa-regular fa-eye-slash fa-beat-fade"></i>
+                                <div data-i18n="Analytics">Unpublished</div>
+                            </a>
+                        </li>
+                        <li class="menu-item ms-4  @if (Route::current()->uri == 'blog/published') active @endif">
+                            <a href="{{ route('blogs.published') }}" class="menu-link">
+                               <i class="menu-icon fa-regular fa-eye fa-beat-fade"></i>
+                                <div data-i18n="Analytics">Published</div>
+                            </a>
+                        </li>
+                        <li class="menu-item ms-4  @if (Route::current()->uri == 'blog/archived') active @endif">
+                            <a href="{{ route('blogs.archived') }}" class="menu-link">
                                 <i class="menu-icon fa-solid fa-box-open fa-beat-fade"></i>
                                 <div data-i18n="Analytics">Archived</div>
                             </a>
                         </li>
+                          {{--  <li class="menu-item ms-4  @if (Route::current()->uri == 'emp/exercises/active') active @endif">
+                             <a href="{{ route('emp.exercises.active') }}" class="menu-link">
+                                <i class="menu-icon fa-regular fa-eye-slash fa-beat-fade"></i>
+                                 <div data-i18n="Analytics">Unpublished</div>
+                             </a>
+                         </li>  --}}
+                         {{--  <li class="menu-item ms-4 @if (Route::current()->uri == 'emp/exercises/archived') active @endif">
+                             <a href="{{ route('emp.exercises.archived') }}" class="menu-link">
+                                 <i class="menu-icon fa-regular fa-eye fa-beat-fade"></i>
+                                 <div data-i18n="Analytics">Published</div>
+                             </a>
+                         </li>  --}}
+                         {{--  <li class="menu-item ms-4 @if (Route::current()->uri == 'emp/exercises/archived') active @endif">
+                            <a href="{{ route('emp.exercises.archived') }}" class="menu-link">
+                                <i class="menu-icon fa-solid fa-box-open fa-beat-fade"></i>
+                                <div data-i18n="Analytics">Archived</div>
+                            </a>
+                        </li>  --}}
                      </ul>
                  </li>
              </ul>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Employee\Blogs;
 
 use App\Models\User;
 use Exception;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ManageEmployees extends Component
+class BlogsPublished extends Component
 {
     use WithPagination;
     public
@@ -166,10 +166,9 @@ class ManageEmployees extends Component
     {
         $this->resetPage();
     }
-
     public function render()
     {
         $data = User::getEmployees($this->search);
-        return view('livewire.admin.manage-employees', ['data' => $data]);
-    } 
+        return view('livewire.employee.blogs.blogs-published',['data' => $data]);
+    }
 }
