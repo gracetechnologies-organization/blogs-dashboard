@@ -2,43 +2,69 @@
 
 namespace App\Http\Livewire\Employee\Blogs;
 
+use App\Models\Blog;
 use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Hash;
+use App\Services\ImageManipulation;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 class BlogsUnpublished extends Component
 {
 
-    use WithPagination;
-    public
-    $employee_id,
-    $name,
-    $email,
-    $password,
-    $search = '';
+    use
+        WithPagination,
+        WithFileUploads;
 
     protected $paginationTheme = 'bootstrap';
 
+    public
+        $BlogID,
+        $Image,
+        $Title,
+        $MetaTitle,
+        $MetaDescription,
+        $Category,
+        $Status,
+        $Excerpt,
+        $Blog,
+        $Search = '',
+        $Categories;
+
     protected $rules = [
-        'name' => 'required|string|regex:/^[A-Za-z\s]+$/',
-        'email' => 'required|email',
-        'password' => 'required|min:8'
+        'Image' => 'image|mimes:png,jpeg,jpg,bmp,gif,svg,webp',
+        'Title' => 'required|string|unique:blogs,title|max:180',
+        'MetaTitle' => 'required|string',
+        'MetaDescription' => 'required|string',
+        'Category' => 'required|integer|numeric',
+        'Status' => 'required',
+        'Excerpt' => 'required|string',
+        'Blog' => 'required|string',
     ];
 
-    public function updated($property_name)
+    public function updated($PropertyName)
     {
-        $this->validateOnly($property_name);
+        $this->validateOnly($PropertyName);
+    }
+
+    public function mount()
+    {
+        $this->Categories = Blog::getCategories();
     }
 
     public function resetModal()
     {
         $this->resetAllErrors();
-        $this->employee_id = '';
-        $this->name = '';
-        $this->email = '';
-        $this->password = '';
+        $this->Image ;
+        $this->Title= '';
+        $this->MetaTitle= '';
+        $this->MetaDescription= '';
+        $this->Category= '';
+        $this->Status= '';
+        $this->Excerpt= '';
+        $this->Blog ='';
     }
 
     public function resetAllErrors()
@@ -47,13 +73,19 @@ class BlogsUnpublished extends Component
         $this->resetValidation();
     }
 
-    public function renderEditModal($id)
+    public function renderEditModal($ID)
     {
-        $data = User::find($id);
-        if ($data) {
-            $this->employee_id = $data->id;
-            $this->name = $data->name;
-            $this->email = $data->email;
+        $Data = Blog::find($ID);
+        if ($Data) {
+            $this->BlogID = $Data->id;
+            // $this->$Image = $Data->image;
+            $this->Title = $Data->title;
+            $this->MetaTitle = $Data->meta_title;
+            $this->MetaDescription = $Data->meta_description;
+            $this->Category = $Data->cat_id;
+            $this->Status = $Data->status;
+            $this->Excerpt = $Data->excerpt;
+            $this->Blog = $Data->blog;
         } else {
             return redirect()->to(route('admin.employees'))->with('error', 'Record Not Found.');
         }
@@ -61,49 +93,18 @@ class BlogsUnpublished extends Component
 
     public function renderDeleteModal($id)
     {
-        $this->employee_id = $id;
+        $this->BlogID = $id;
+
     }
 
-    public function add()
+    public function updateImage()
     {
-        $this->validate();
+        $this->validateOnly('Image');
         try {
-            /* Perform some operation */
-            $inserted = User::create([
-                'name' => $this->name,
-                'email' => $this->email,
-                'password' => $this->password
-            ]);
-            /* Operation finished */
-            $this->resetModal();
+            $Image =ImageManipulation::getImgURL($this->Image);
+            $updated = Blog::where('id', '=', $this->BlogID)
+                        ->update(['image' =>  $Image]);
             sleep(1);
-            $this->dispatchBrowserEvent('close-modal', ['id' => 'addModal']);
-            if ($inserted) {
-                session()->flash('success', config('messages.INSERTION_SUCCESS'));
-            } else {
-                session()->flash('error', config('messages.INSERTION_FAILED'));
-            }
-        } catch (Exception $error) {
-            report($error);
-            session()->flash('error', config('messages.INVALID_DATA'));
-        }
-    }
-
-    public function edit()
-    {
-        $this->validate();
-        try {
-            /* Perform some operation */
-            $updated = User::where('id', '=', $this->employee_id)
-                ->update([
-                    'name' => $this->name,
-                    'email' => $this->email,
-                    'password' => Hash::make($this->password),
-                ]);
-            /* Operation finished */
-            $this->resetModal();
-            sleep(1);
-            $this->dispatchBrowserEvent('close-modal', ['id' => 'editModal']);
             if ($updated) {
                 session()->flash('success', config('messages.UPDATION_SUCCESS'));
             } else {
@@ -115,11 +116,49 @@ class BlogsUnpublished extends Component
         }
     }
 
+    public function edit()
+    {
+        $this->validate();
+        if (!$this->BlogID) {
+            session()->flash('error', 'Record Not Found.');
+            return;
+        }
+        try {    
+
+            // Check if the Image property is updated
+            if ($this->Image) {
+                // Process image update here, e.g., move the uploaded file and update the database
+                // Make sure to update the 'image' column in the database with the new image path
+                // $updatedData['image'] = 'new_image_path_here';
+            }
+            $UpDated = Blog::updateUnpublished(
+                (int)$this->BlogID,
+                $this->Title,
+                $this->MetaTitle,
+                $this->MetaDescription,
+                $this->Category,
+                $this->Status,
+                $this->Excerpt,
+                $this->Blog
+            );
+            if ($UpDated) {
+                session()->flash('success', config('messages.UPDATION_SUCCESS'));
+            } else {
+                session()->flash('error', config('messages.UPDATION_FAILED'));
+            }
+        } catch (Exception $error) {
+            report($error);
+            session()->flash('error', config('messages.INVALID_DATA'));
+        }
+        $this->resetModal();
+    }
+
+
     public function destroy()
     {
         try {
             /* Perform some operation */
-            $deleted = User::delEmployee($this->employee_id);
+            $deleted = Blog::find($this->BlogID)->delete();
             /* Operation finished */
             sleep(1);
             $this->dispatchBrowserEvent('close-modal', ['id' => 'deleteModal']);
@@ -132,6 +171,7 @@ class BlogsUnpublished extends Component
             report($error);
             session()->flash('error', config('messages.INVALID_DATA'));
         }
+    
     }
     /**
      * The sole purpose of this function is to resolve the double-click problem
@@ -146,12 +186,10 @@ class BlogsUnpublished extends Component
         $this->$form_name();
     }
 
-    public function changeStatus($id, $email_verified_at)
+    public function changeStatus($BlogID, $Status)
     {
         try {
-            /* Perform some operation */
-            $status_cahnged = User::activeOrBlockEmployee($id, $email_verified_at);
-            /* Operation finished */
+            $status_cahnged = Blog::activeOrBlockBlog($BlogID, $Status);
             if ($status_cahnged) {
                 $this->resetPage();
             } else {
@@ -167,10 +205,11 @@ class BlogsUnpublished extends Component
     {
         $this->resetPage();
     }
-    
+
     public function render()
     {
-        $data = User::getEmployees($this->search);
-        return view('livewire.employee.blogs.blogs-unpublished',['data' =>$data]);
+        $data = Blog::getBlogName($this->Search);
+        $Data = Blog::getUnpublishedBlog();
+        return view('livewire.employee.blogs.blogs-unpublished',['data' =>$data , 'Data' => $Data]);
     }
 }
