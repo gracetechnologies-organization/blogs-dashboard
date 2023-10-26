@@ -29,9 +29,16 @@
     {{-- ************************************** Save Post Model ******************************************* --}}
     <div class="container-fliud">
         <div class="row">
+            <div class="col-12 col-sm-6 col-md-6">
+                <h1>Create Blog</h1>
+            </div>
             <form action="{{ route('create.blog') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @if ($Categories->isEmpty())
+                <p>Please! First Create Some <a href="{{ route('blogs.category') }}">Categories.</a></p>
+            @else
             @include('components.blog-form')
+            @endif
             </form>
         </div>
     </div>
