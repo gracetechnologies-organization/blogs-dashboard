@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Blog\BlogController;
 use App\Http\Livewire\Employee\Blogs\BlogsArchived;
 use App\Http\Livewire\Employee\Blogs\BlogsCategories;
 use App\Http\Livewire\Employee\Blogs\BlogsPublished;
@@ -15,3 +16,4 @@ Route::prefix('blog')->group(function () {
     Route::get('categories', BlogsCategories::class)->name('blogs.category');
     Route::get('render-blog/{ID}', BlogsRender::class)->name('blogs.render');
 });
+Route::post('blog-create',[BlogController::class ,'createBlog'])->name('create.blog');

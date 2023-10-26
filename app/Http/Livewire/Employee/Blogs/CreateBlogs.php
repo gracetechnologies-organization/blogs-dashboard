@@ -45,8 +45,9 @@ class CreateBlogs extends Component
         $this->Categories = Blog::getCategories();
     }
 
-    public function savePost()
+    public function savePost(Request $Req)
     {
+        dd($Req->all());
         try {
             $this->validate();
             $Image =ImageManipulation::getImgURL($this->Image);
