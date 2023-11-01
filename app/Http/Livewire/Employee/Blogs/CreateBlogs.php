@@ -47,7 +47,6 @@ class CreateBlogs extends Component
 
     public function savePost(Request $Req)
     {
-        dd($Req->all());
         try {
             $this->validate();
             $Image =ImageManipulation::getImgURL($this->Image);

@@ -144,31 +144,23 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div wire:ignore class="mb-3 col">
-                                <label for="Blog" class="form-label">Blog</label>
-                                <textarea rows="3" wire:model.defer="Blog" id="long_Blog" data-blog="@this" class="form-control responsive-textarea" value="{!!$Blog!!}"></textarea>
-                                <small class="text-danger">
-                                    @error('Blog')
-                                    {{ $message }}
-                                    @enderror
-                                </small>
+                            <div class="form-group">
+                                <label for="Blog">Blog</label>
+                                <textarea class="form-control" name="Blog" id="Blog" cols="30" rows="10">
+                                    {{ $Blog }}
+                                </textarea>
                             </div>
-                            <script src="https://cdn.ckeditor.com/ckeditor5/35.1.0/classic/ckeditor.js"></script>
+                            <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+                            <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
                             <script>
-                                ClassicEditor
-                                    .create(document.querySelector('#long_Blog'))
-                                    .then(editor => {
-                                        editor.model.document.on('change:data', () => {
-                                            let Blog = $('#long_Blog').data('blog');
-                                            @this.set('Blog', editor.getData());
-                                        });
-                                    })
-                                    .catch(error => {
-                                        console.error(error);
-                                    });
+                                $('#Blog').summernote({
+                                    placeholder: 'description...',
+                                    tabsize:2,
+                                    height:300
+                                });
                             </script>
                         </div>
-                            {{--  <div class="modal-footer">
+                            <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
                                     wire:click="resetModal">
                                     Close
@@ -176,13 +168,13 @@
                                 <button type="submit" class="btn btn-primary" wire:click.prevent="submitForm('edit')"
                                     wire:loading.class="btn-dark" wire:loading.class.remove="btn-primary"
                                     wire:loading.attr="disabled">
-                                    <span wire:loading.remove>Update</span>
+                                    <span wire:loading.remove data-bs-target="submit">Update</span>
                                     <span wire:loading>
                                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                     </span>
                                 </button>
-                            </div>  --}}
-                            <div class="modal-footer">
+                            </div>
+                            {{--  <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
                                     wire:click="resetModal">
                                     Close
@@ -194,7 +186,7 @@
                                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                     </span>
                                 </button>
-                            </div>
+                            </div>  --}}
                         </div>
                 </form>
             </div>
@@ -250,13 +242,13 @@
                         style="background-image:url('{{ asset('storage/blog_images/'. $Unpublished->image)}}');">
                         <div class="card-img-overlay custom-card-img-overlay d-flex flex-column">
                             <div class="card-body custom-card-body">
-                                <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#editModal" wire:click="renderEditModal({{ $Unpublished->id }})">
-                                    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                            <a href="{{ route('blogs.edit.published', $Unpublished->id)}}">
+                                <button type="button" class="btn btn-outline-info btn-sm">                                     
+                                        <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                                 </button>
+                            </a>
                                 <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal"
-                                    wire:click="renderDeleteModal({{ $Unpublished->id }})">
+                                    data-bs-target="#deleteModal" wire:click="renderDeleteModal({{ $Unpublished->id }})">
                                     <i class="fa-regular fa-box-archive"></i>
                                 </button>
                                 {{-- <h4 class="mt-0 card-title ">
