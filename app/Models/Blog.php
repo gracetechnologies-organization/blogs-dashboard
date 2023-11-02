@@ -65,10 +65,10 @@ class Blog extends Model
 
     }
 
-    public static function getBlogName(string $Search)
+    public static function getBlogs(int $Status, string $Search)
     {
         return Blog::where('title', 'like', '%' . $Search . '%')
-                    ->where('status',0)
+                    ->where('status', $Status)
                     ->orderBy('created_at', 'desc')
                     ->paginate(9);
     }

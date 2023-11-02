@@ -208,8 +208,10 @@ class BlogsUnpublished extends Component
 
     public function render()
     {
-        $data = Blog::getBlogName($this->Search);
-        $Data = Blog::getUnpublishedBlog();
-        return view('livewire.employee.blogs.blogs-unpublished',['data' =>$data , 'Data' => $Data]);
+        $Data = Blog::getBlogs(0, $this->Search);
+        // dd($data);
+        // $Data = Blog::getUnpublishedBlog();
+        // return view('livewire.employee.blogs.blogs-unpublished',['data' =>$data , 'Data' => $Data]);
+        return view('livewire.employee.blogs.blogs-unpublished',['Data' =>$Data]);
     }
 }
