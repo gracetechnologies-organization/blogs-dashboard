@@ -250,10 +250,15 @@
                         style="background-image:url('{{ asset('storage/blog_images/'. $Unpublished->image)}}');">
                         <div class="card-img-overlay custom-card-img-overlay d-flex flex-column">
                             <div class="card-body custom-card-body">
-                                <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal"
+                            <a href="{{ route('blogs.edit.un.published', $Unpublished->id)}}">
+                                <button type="button" class="btn btn-outline-info btn-sm">                                     
+                                        <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                                </button>
+                            </a>
+                                {{--  <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#editModal" wire:click="renderEditModal({{ $Unpublished->id }})">
                                     <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-                                </button>
+                                </button>  --}}
                                 <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#deleteModal"
                                     wire:click="renderDeleteModal({{ $Unpublished->id }})">

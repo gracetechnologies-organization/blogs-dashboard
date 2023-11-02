@@ -45,19 +45,23 @@ class Blog extends Model
     public static function getUnpublishedBlog()
     {
         $authorID = Blog::getUser();
-        return Blog::where(['status' => 0,'author_id' => $authorID])->paginate(9);
+        return Blog::where(['status' => 0,'author_id' => $authorID])
+                    ->paginate(8);
     }
 
     public static function getPublishedBlog()
     {
         $authorID = Blog::getUser();
-        return Blog::where(['status' => 1,'author_id' => $authorID])->paginate(9);
+        return Blog::where(['status' => 1,'author_id' => $authorID])
+                    ->paginate(6);
     }
 
     public static function getArchivedBlog()
     {
         $authorID = Blog::getUser();
-        return Blog::onlyTrashed()->where('author_id', $authorID)->paginate(9);
+        return Blog::onlyTrashed()
+                    ->where('author_id', $authorID)
+                    ->paginate(6);
 
     }
 
@@ -72,11 +76,12 @@ class Blog extends Model
     public static function activeOrBlockBlog(int $BlogID, string $Status)
     {
         return Blog::where('id', $BlogID)
-            ->update(['status' => $Status]);
+                    ->update(['status' => $Status]);
     }
 
     public static function insertBlog(string $Image, string $Title, string $MetaTitle, string $MetaDescription, int $Category, int $Status, string $Excerpt, string $Blog)
     {
+        $StatusToSave = $Status === 1 ? 1 : 0;
         return Blog::create([
             'image' => $Image,
             'title' => $Title,
@@ -84,23 +89,10 @@ class Blog extends Model
             'meta_description' => $MetaDescription,
             'cat_id' => $Category,
             'author_id'=> auth()->user()->id,
-            'status' => $Status,
+            'status' => $StatusToSave,
             'excerpt' => $Excerpt,
             'blog' => $Blog
         ]);
-    }
-
-    public static function updateUnpublished(int $BlogID, string $Title, string $MetaTitle, string $MetaDescription, int $Category, int $Status, string $Excerpt, string $Blog){
-        $updatedData = [
-            'title' => $Title,
-            'meta_title' => $MetaTitle,
-            'meta_description' => $MetaDescription,
-            'cat_id' => $Category,
-            'status' => $Status,
-            'excerpt' => $Excerpt,
-            'blog' => $Blog,
-        ];
-        return Blog::where('id', $BlogID)->update($updatedData);
     }
 
 }

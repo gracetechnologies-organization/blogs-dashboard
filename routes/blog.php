@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Blog\BlogController;
+use App\Http\Controllers\Blog\UnPublishedController;
 use App\Http\Livewire\Employee\Blogs\BlogsArchived;
 use App\Http\Livewire\Employee\Blogs\BlogsCategories;
 use App\Http\Livewire\Employee\Blogs\BlogsPublished;
@@ -19,5 +20,7 @@ Route::prefix('blog')->group(function () {
     // Route::get('edit-published/{ID}',EditPublishedBlog::class)->name('blogs.edit.published');
 });
 Route::post('blog-create',[BlogController::class ,'createBlog'])->name('create.blog');
-Route::get('blog-edit/{ID}', [BlogController::class, 'editBlog'])->name('blogs.edit.published');
-Route::post('blog-update/{ID}', [BlogController::class, 'updateBlog'])->name('update.blog');
+Route::get('blog-edit-published/{ID}', [BlogController::class, 'editBlog'])->name('blogs.edit.published');
+Route::post('blog-update-published/{ID}', [BlogController::class, 'updateBlog'])->name('update.blog');
+Route::get('blog-edit-un-published/{ID}', [UnPublishedController::class, 'editBlog'])->name('blogs.edit.un.published');
+
