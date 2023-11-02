@@ -1,29 +1,29 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     @if (session()->has('error'))
-        <div class="top-0 m-2 bs-toast toast toast-placement-ex fade bg-danger end-0 show" role="alert"
-            aria-live="assertive" aria-atomic="true" data-delay="2000">
-            <div class="toast-header">
-                <i class="bx bx-bell me-2"></i>
-                <div class="me-auto fw-semibold">Error</div>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                {{ session()->get('error') }}
-            </div>
+    <div class="top-0 m-2 bs-toast toast toast-placement-ex fade bg-danger end-0 show" role="alert"
+        aria-live="assertive" aria-atomic="true" data-delay="2000">
+        <div class="toast-header">
+            <i class="bx bx-bell me-2"></i>
+            <div class="me-auto fw-semibold">Error</div>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
+        <div class="toast-body">
+            {{ session()->get('error') }}
+        </div>
+    </div>
     @endif
     @if (session()->has('success'))
-        <div class="top-0 m-2 bs-toast toast toast-placement-ex fade bg-success end-0 show" role="alert"
-            aria-live="assertive" aria-atomic="true" data-delay="2000">
-            <div class="toast-header">
-                <i class="bx bx-bell me-2"></i>
-                <div class="me-auto fw-semibold">Success</div>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                {{ session()->get('success') }}
-            </div>
+    <div class="top-0 m-2 bs-toast toast toast-placement-ex fade bg-success end-0 show" role="alert"
+        aria-live="assertive" aria-atomic="true" data-delay="2000">
+        <div class="toast-header">
+            <i class="bx bx-bell me-2"></i>
+            <div class="me-auto fw-semibold">Success</div>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
+        <div class="toast-body">
+            {{ session()->get('success') }}
+        </div>
+    </div>
     @endif
     {{-- ************************************ Edit Un Published Model ************************************ --}}
     <div wire:ignore.self class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
@@ -64,7 +64,7 @@
                                 </div>
                                 <small class="text-danger">
                                     @error('Image')
-                                        {{ $message }}
+                                    {{ $message }}
                                     @enderror
                                 </small>
                             </div>
@@ -73,7 +73,8 @@
                         <div class="row">
                             <div class="mb-3 col">
                                 <label for="Title" class="form-label">Title</label>
-                                <input type="text" placeholder="Enter Blog Title" wire:model.defer="Title" value="{{$Title}}" class="form-control">
+                                <input type="text" placeholder="Enter Blog Title" wire:model.defer="Title"
+                                    value="{{$Title}}" class="form-control">
                                 <small class="text-danger">
                                     @error('Title')
                                     {{ $message }}
@@ -84,8 +85,8 @@
                         <div class="row">
                             <div class="mb-3 col">
                                 <label for="MetaTitle" class="form-label">Meta Title</label>
-                                <input type="text" placeholder="Enter Blog Mete Title" wire:model.defer="MetaTitle" value="{{$MetaTitle}}"
-                                    class="form-control">
+                                <input type="text" placeholder="Enter Blog Mete Title" wire:model.defer="MetaTitle"
+                                    value="{{$MetaTitle}}" class="form-control">
                                 <small class="text-danger">
                                     @error('MetaTitle')
                                     {{ $message }}
@@ -96,7 +97,8 @@
                         <div class="row">
                             <div class="mb-3 col">
                                 <label for="MetaDescription" class="form-label">Meta Description</label>
-                                <input type="text" placeholder="Enter Blog Mete Title" wire:model.defer="MetaDescription" value="{{$MetaDescription}}"
+                                <input type="text" placeholder="Enter Blog Mete Title"
+                                    wire:model.defer="MetaDescription" value="{{$MetaDescription}}"
                                     class="form-control">
                                 <small class="text-danger">
                                     @error('MetaDescription')
@@ -122,7 +124,8 @@
                             <div class="mb-3 col">
                                 <p class="form-label">Status</p>
                                 <div class="checkbox">
-                                    <input type="checkbox" wire:model.defer="Status" value='1' value="{{$Status}}">&nbsp;&nbsp;<span>Published</span>
+                                    <input type="checkbox" wire:model.defer="Status" value='1'
+                                        value="{{$Status}}">&nbsp;&nbsp;<span>Published</span>
                                     <small class="text-danger">
                                         @error('Status')
                                         {{ $message }}
@@ -134,8 +137,8 @@
                         <div class="row">
                             <div class="mb-3 col">
                                 <label for="Excerpt" class="form-label">Excerpt</label>
-                                <input type="text" placeholder="Enter Blog Excerpt" wire:model.defer="Excerpt" value="{{$Excerpt}}"
-                                    class="form-control">
+                                <input type="text" placeholder="Enter Blog Excerpt" wire:model.defer="Excerpt"
+                                    value="{{$Excerpt}}" class="form-control">
                                 <small class="text-danger">
                                     @error('Excerpt')
                                     {{ $message }}
@@ -147,47 +150,37 @@
                             <div class="form-group">
                                 <label for="Blog">Blog</label>
                                 <textarea class="form-control" name="Blog" id="Blog" cols="30" rows="10">
-                                    {{ $Blog }}
+                                {{ $Blog }}
                                 </textarea>
                             </div>
-                            <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-                            <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+                            <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
+                                rel="stylesheet">
+                            <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js">
+                            </script>
                             <script>
                                 $('#Blog').summernote({
                                     placeholder: 'description...',
-                                    tabsize:2,
-                                    height:300
+                                    tabsize: 2,
+                                    height: 300
                                 });
                             </script>
                         </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
-                                    wire:click="resetModal">
-                                    Close
-                                </button>
-                                <button type="submit" class="btn btn-primary" wire:click.prevent="submitForm('edit')"
-                                    wire:loading.class="btn-dark" wire:loading.class.remove="btn-primary"
-                                    wire:loading.attr="disabled">
-                                    <span wire:loading.remove data-bs-target="submit">Update</span>
-                                    <span wire:loading>
-                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                    </span>
-                                </button>
-                            </div>
-                            {{--  <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
-                                    wire:click="resetModal">
-                                    Close
-                                </button>
-                                <button type="submit" class="btn btn-primary" wire:loading.class="btn-dark" wire:loading.class.remove="btn-primary"
-                                    wire:loading.attr="disabled">
-                                    <span wire:loading.remove>Update</span>
-                                    <span wire:loading>
-                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                    </span>
-                                </button>
-                            </div>  --}}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                                wire:click="resetModal">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary" wire:click.prevent="submitForm('edit')"
+                                wire:loading.class="btn-dark" wire:loading.class.remove="btn-primary"
+                                wire:loading.attr="disabled">
+                                <span wire:loading.remove data-bs-target="submit">Update</span>
+                                <span wire:loading>
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>
+                                </span>
+                            </button>
                         </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -215,8 +208,7 @@
                             wire:loading.class.remove="btn-danger" wire:loading.attr="disabled">
                             <span wire:loading.remove>Delete</span>
                             <span wire:loading>
-                                <span class="spinner-border spinner-border-sm" role="status"
-                                    aria-hidden="true"></span>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                             </span>
                         </button>
                     </div>
@@ -230,72 +222,63 @@
         </div>
         <div class="col-12 col-sm-6 col-md-6">
             <div class="my-3 input-group">
-                <input type="text" wire:model.debounce.500ms="Search" class="py-3 form-control" placeholder="Search here...">
+                <input type="text" wire:model.debounce.500ms="Search" class="py-3 form-control"
+                    placeholder="Search here...">
             </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
             @forelse ($Data as $Unpublished)
-                <div class="mb-4 col-sm-12 col-md-6 col-lg-4">
-                    <div class="text-white card custom-card custom-card-has-bg"
-                        style="background-image:url('{{ asset('storage/blog_images/'. $Unpublished->image)}}');">
-                        <div class="card-img-overlay custom-card-img-overlay d-flex flex-column">
-                            <div class="card-body custom-card-body">
+            <div class="mb-4 col-sm-12 col-md-6 col-lg-4">
+                <div class="text-white card custom-card custom-card-has-bg"
+                    style="background-image:url('{{ asset('storage/blog_images/'. $Unpublished->image)}}');">
+                    <div class="card-img-overlay custom-card-img-overlay d-flex flex-column">
+                        <div class="card-body custom-card-body">
                             <a href="{{ route('blogs.edit.published', $Unpublished->id)}}">
-                                <button type="button" class="btn btn-outline-info btn-sm">                                     
-                                        <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                                <button type="button" class="btn btn-outline-info btn-sm">
+                                    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                                 </button>
                             </a>
-                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal" wire:click="renderDeleteModal({{ $Unpublished->id }})">
-                                    <i class="fa-regular fa-box-archive"></i>
-                                </button>
-                                {{-- <h4 class="mt-0 card-title ">
-                                    <a class="text-white" herf="#">Grace Technologies</a>
-                                </h4> --}}
-                            </div>
-                            <div class="card-footer custom-card-footer">
-                                <div class="media">
-                                    <img class="mr-3 rounded-circle" src="{{ asset('storage/blog_images/'. $Unpublished->image) }}"
-                                        alt="Generic placeholder image" style="max-width:50px">
-                                    <div class="media-body">
-                                        <h6 class="my-0 text-white d-block"><a href="{{ route('blogs.render',$Unpublished->id) }}">{{ $Unpublished->title }}</a></h6>
-                                        <small>{{ $Unpublished->meta_title }}</small> <br>
-                                        <small><i class="far fa-clock"></i> Joining:
-                                            {{ $Unpublished->created_at }}</small>
-                                    </div>
-                                    {{--  <div class="mt-3 form-check form-switch">
-                                        <input type="checkbox" class="form-check-input form-check-input-custom"
-                                            value="{{ $Unpublished->id }}"
-                                            wire:click="changeStatus({{ $Unpublished->id }}, '{{ $Unpublished->status }}')"
-                                            role="switch" {{ $Unpublished->status ? 'checked' : '' }}>
-                                        <label class="form-check-label">
-                                            {{ $Unpublished->status ? 'Published' : 'Unpublished' }}
-                                        </label>
-                                    </div>  --}}
-                                    <div class="mt-3 form-check form-switch">
-                                        <input type="checkbox" class="form-check-input form-check-input-custom"
-                                            value="{{ $Unpublished->status ? '1' : '0' }}"
-                                            wire:click="changeStatus({{ $Unpublished->id }}, {{ $Unpublished->status ? '0' : '1' }})"
-                                            role="switch" {{ $Unpublished->status ? 'checked' : '' }}>
-                                        <label class="form-check-label">
-                                            {{ $Unpublished->status ? 'Published' : 'Unpublished' }}
-                                        </label>
-                                    </div>
-
+                            <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal" wire:click="renderDeleteModal({{ $Unpublished->id }})">
+                                <i class="fa-regular fa-box-archive"></i>
+                            </button>
+                        </div>
+                        <div class="card-footer custom-card-footer">
+                            <div class="media">
+                                <img class="mr-3 rounded-circle"
+                                    src="{{ asset('storage/blog_images/'. $Unpublished->image) }}"
+                                    alt="Generic placeholder image" style="max-width:50px">
+                                <div class="media-body">
+                                    <h6 class="my-0 text-white d-block"><a
+                                            href="{{ route('blogs.render',$Unpublished->id) }}">{{ $Unpublished->title }}</a>
+                                    </h6>
+                                    <small>{{ $Unpublished->meta_title }}</small> <br>
+                                    <small><i class="far fa-clock"></i> Joining:
+                                        {{ $Unpublished->created_at }}</small>
                                 </div>
+                                <div class="mt-3 form-check form-switch">
+                                    <input type="checkbox" class="form-check-input form-check-input-custom"
+                                        value="{{ $Unpublished->status ? '1' : '0' }}"
+                                        wire:click="changeStatus({{ $Unpublished->id }}, {{ $Unpublished->status ? '0' : '1' }})"
+                                        role="switch" {{ $Unpublished->status ? 'checked' : '' }}>
+                                    <label class="form-check-label">
+                                        {{ $Unpublished->status ? 'Published' : 'Unpublished' }}
+                                    </label>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             @empty
-                <h1 class="text-dark">No Published Yet :(</h1>
+            <h1 class="text-dark">No Published Yet :(</h1>
             @endforelse
         </div>
         <div class="row">
             {{ $Data->links() }}
         </div>
     </div>
-
 </div>

@@ -207,9 +207,8 @@ class BlogsPublished extends Component
 
     public function render()
     {
-        $data = Blog::getBlogName($this->Search);
-        $Data = Blog::getPublishedBlog();
-        return view('livewire.employee.blogs.blogs-published',['data' =>$data , 'Data' => $Data]);
+        $Data  = Blog::getBlogs(1,$this->Search);
+        return view('livewire.employee.blogs.blogs-published',['Data' => $Data]);
     }
 }
 

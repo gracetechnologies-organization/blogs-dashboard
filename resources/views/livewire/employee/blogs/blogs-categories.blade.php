@@ -92,7 +92,7 @@
                                 </small>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
                             wire:click="resetModal">
@@ -165,13 +165,6 @@
                         <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">
                             No
                         </button>
-                        {{-- <button type="submit" class="btn btn-danger" wire:loading.class="btn-dark"
-                            wire:loading.class.remove="btn-danger" wire:loading.attr="disabled">
-                            <span wire:loading.remove>Delete</span>
-                            <span wire:loading>
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                            </span>
-                        </button> --}}
                     </div>
                 </form>
             </div>
@@ -185,11 +178,9 @@
             <div class="input-group my-3">
                 <input type="text" wire:model.debounce.500ms="search" class="form-control py-3"
                     placeholder="Search here...">
-                {{-- <button class="btn btn-primary" type="button"><i class='bx bx-search-alt'></i></button> --}}
             </div>
         </div>
         <div class="col-12 col-md-2">
-            {{-- style="border: 1px solid red;" --}}
             <div class="row">
                 <div class="col">
                     <button type="button" class="btn btn-danger my-3 py-3 w-100" data-bs-toggle="modal"
@@ -197,12 +188,11 @@
                         title="Delete All">
                         <i class="fa-solid fa-trash-arrow-up"></i>
                     </button>
-                </button>
+                    </button>
                 </div>
                 <div class="col">
                     <button type="button" class="btn btn-primary my-3 py-3 w-100" data-bs-toggle="modal"
                         data-bs-target="#addModal" title="Add Category">
-                        {{--  <i class='bx bx-plus-medical'></i>  --}}
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
@@ -255,32 +245,6 @@
                         </td>
                     </tr>
                     <tr>
-                        {{-- Increment $i to add different id in all child components --}}
-                        {{--  <?php ++$i; ?>
-                        <td colspan="4" class="sub-category-bg">
-                            <div class="accordion accordion-flush" id="accordionFlush{{ $i }}">
-                                <div class="accordion-item accordion-item-custom">
-                                    <h2 class="accordion-header text-end" id="flush-heading{{ $i }}">
-                                        <button
-                                            class="accordion-button collapsed accordion-button-custom sub-category-bg text-dark"
-                                            type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#subCategory{{ $i }}" aria-expanded="false"
-                                            aria-controls="subCategory{{ $i }}">
-                                            Sub Categories
-                                        </button>
-                                    </h2>
-                                    <div id="subCategory{{ $i }}" class="accordion-collapse collapse"
-                                        aria-labelledby="flush-heading{{ $i }}"
-                                        data-bs-parent="#accordionFlush{{ $i }}">
-                                        <div class="accordion-body sub-category-bg">
-                                            <livewire:employee.manage-sub-categories
-                                                :parent_category_id="$single_index->id"
-                                                wire:key="sub-categories-component-{{ $i . $categories_page }}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>  --}}
                     </tr>
                     @empty
                     <tr class="alert alert-warning alert-dismissible text-center rounded-bottom">
@@ -291,11 +255,11 @@
             </table>
 
         </div>
-        {{--  <div class="row">
+        {{-- <div class="row">
             @if (empty($search))
             {{ $data->links() }}
-            @endif
-        </div>  --}}
-    </div>
-    <!--/ Basic Bootstrap Table -->
+        @endif
+    </div> --}}
+</div>
+<!--/ Basic Bootstrap Table -->
 </div>

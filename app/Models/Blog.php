@@ -42,20 +42,6 @@ class Blog extends Model
         return auth()->user()->id;
     }
 
-    public static function getUnpublishedBlog()
-    {
-        $authorID = Blog::getUser();
-        return Blog::where(['status' => 0,'author_id' => $authorID])
-                    ->paginate(8);
-    }
-
-    public static function getPublishedBlog()
-    {
-        $authorID = Blog::getUser();
-        return Blog::where(['status' => 1,'author_id' => $authorID])
-                    ->paginate(6);
-    }
-
     public static function getArchivedBlog()
     {
         $authorID = Blog::getUser();
@@ -67,10 +53,12 @@ class Blog extends Model
 
     public static function getBlogs(int $Status, string $Search)
     {
+        $AuthorID = Blog::getUser();
         return Blog::where('title', 'like', '%' . $Search . '%')
                     ->where('status', $Status)
+                    ->where('author_id',$AuthorID)
                     ->orderBy('created_at', 'desc')
-                    ->paginate(9);
+                    ->paginate(6);
     }
 
     public static function activeOrBlockBlog(int $BlogID, string $Status)

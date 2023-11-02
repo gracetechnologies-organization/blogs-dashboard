@@ -1,5 +1,4 @@
 @include('components.blog-main-header')
-{{-- {{dd($Data)}} --}}
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <form method="POST" action="{{ route('update.blog',$Data->id) }}" enctype="multipart/form-data">

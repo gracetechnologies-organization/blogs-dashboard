@@ -60,8 +60,7 @@ class BlogController extends Controller
                 $Image = $Req->file('Image');
                 $imageName = time() . '.' . $Image->getClientOriginalExtension();
                 $Image->move(public_path('storage/blog_images'), $imageName);
-            }
-            else {
+            }else {
                 $imageName = $existingBlog->image;
             }
             $Blog = $Req->Blog;

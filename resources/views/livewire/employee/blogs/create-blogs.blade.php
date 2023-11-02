@@ -33,12 +33,12 @@
                 <h1>Create Blog</h1>
             </div>
             <form action="{{ route('create.blog') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @if ($Categories->isEmpty())
+                @csrf
+                @if ($Categories->isEmpty())
                 <p>Please! First Create Some <a href="{{ route('blogs.category') }}">Categories.</a></p>
-            @else
-            @include('components.blog-form')
-            @endif
+                @else
+                @include('components.blog-form')
+                @endif
             </form>
         </div>
     </div>
