@@ -4,29 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasFactory;
 
-    protected $fillable = [
+    use
+        HasFactory,
+        SoftDeletes;
+    protected $fillable =
+    [
         'name',
-        'token'
     ];
-
+    
     /*
     |--------------------------------------------------------------------------
     | Custom Helper Functions
     |--------------------------------------------------------------------------
     */
-
-    public static function getTokens(string $search)
-    {
-        return Category::where('name', 'like', '%' . $search . '%')
-            ->whereNotNull('token')
-            ->orderBy('updated_at', 'desc')
-            ->paginate(10);
-    }
 
     public static function getCategories()
     {

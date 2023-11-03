@@ -5,7 +5,7 @@
         <div id="cms-block-b" class="cms-block cms-block-element col-md-3">
             <div class="small-box small-box-custom-styles">
                 <div class="inner">
-                    <h3>{{ $total_categories }}</h3>
+                    <h3>{{ $TotalBlog }}</h3>
                     <p>Total Blogs</p>
                 </div>
                 <div class="icon">
@@ -16,8 +16,8 @@
         <div id="cms-block-b" class="cms-block cms-block-element col-md-3">
             <div class="small-box small-box-custom-styles">
                 <div class="inner">
-                    <h3>{{ $total_levels }}</h3>
-                    <p>Total Writers</p>
+                    <h3>{{ $TotalCateogory }}</h3>
+                    <p>Total Categories</p>
                 </div>
                 <div class="icon">
                     <i class="bx bx-lg bx bx-coin-stack text-success"></i>
@@ -30,8 +30,8 @@
         <div id="cms-block-b" class="cms-block cms-block-element col-md-3">
             <div class="small-box small-box-custom-styles">
                 <div class="inner">
-                    <h3>{{ $total_programs }}</h3>
-                    <p>Total Blogs</p>
+                    <p>Author : </p>
+                    <h3>{{ auth()->user()->name }}</h3>
                 </div>
                 <div class="icon">
                     <i class="bx bx-lg bx bx-slideshow text-success"></i>

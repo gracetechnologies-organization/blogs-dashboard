@@ -23,14 +23,23 @@
 <link rel="stylesheet" href="{{ asset('dashboard/vendor/libs/apex-charts/apex-charts.css') }}" />
 <!-- Pages CSS -->
 <link rel="stylesheet" href="{{ asset('dashboard/vendor/css/pages/page-auth.css') }}" />
-<!-- Custom CSS -->
-@if (Auth::user()->role_id === 'admin')
+
+<!-- Custom CSS For Grid-->
+{{--  @if (Auth::user()->role_id === 'admin')  --}}
     <link rel="stylesheet" href="{{ asset('dashboard/css/custom-styles.css') }}">
-@endif
+{{--  @endif  --}}
 <!-- Helpers -->
-<script src="{{ asset('dashboard/vendor/js/helpers.js') }}"></script>
-<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js')}} in the <head> section -->
-<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-<script src="{{ asset('dashboard/js/config.js') }}"></script>
-<!-- Scripts -->
-<script src="{{ asset('js/app.js') }}" defer></script>
+
+{{--  SummerNote Text Editor  --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="{{ asset('dashboard/vendor/js/helpers.js') }}"></script>
+
+
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js')}} in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{{ asset('dashboard/js/config.js') }}"></script>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>

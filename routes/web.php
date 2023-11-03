@@ -20,4 +20,5 @@ require __DIR__ . '/auth.php';
 Route::middleware('auth')->group(function () {
     require_once __DIR__ . '/admin.php';
     require_once __DIR__ . '/emp.php';
+    require_once __DIR__ . '/blog.php';
 });

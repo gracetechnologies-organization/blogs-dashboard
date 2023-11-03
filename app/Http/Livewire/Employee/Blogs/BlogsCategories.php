@@ -1,29 +1,35 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\Employee\Blogs;
 
-use App\Models\User;
+use App\Models\Category;
 use Exception;
-use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ManageEmployees extends Component
+class BlogsCategories extends Component
 {
     use WithPagination;
+
     public
-    $employee_id,
-    $name,
-    $email,
-    $password,
-    $search = '';
+        $category_id,
+        $category,
+        $search = '',
+        $categories_page,
+        $child_checkboxes_checked = false;
+
+    // protected $listeners = ['postAdded' => 'showAlert'];
 
     protected $paginationTheme = 'bootstrap';
 
     protected $rules = [
-        'name' => 'required|string|regex:/^[A-Za-z\s]+$/',
-        'email' => 'required|email',
-        'password' => 'required|min:8'
+        'category' => 'required|string|unique:categories,name|regex:/^[A-Za-z\s]+$/'
+    ];
+
+    protected $messages = [
+        'category.required' => 'Mere bhai category must hai 😒',
+        'category.unique' => 'Yar unique data daal bhangra na daal 😒',
+        'category.regex' => 'Jigar sirf letters dalo 🙂'
     ];
 
     public function updated($property_name)
@@ -34,10 +40,8 @@ class ManageEmployees extends Component
     public function resetModal()
     {
         $this->resetAllErrors();
-        $this->employee_id = '';
-        $this->name = '';
-        $this->email = '';
-        $this->password = '';
+        $this->category_id = '';
+        $this->category = '';
     }
 
     public function resetAllErrors()
@@ -48,19 +52,18 @@ class ManageEmployees extends Component
 
     public function renderEditModal($id)
     {
-        $data = User::find($id);
+        $data = Category::find($id);
         if ($data) {
-            $this->employee_id = $data->id;
-            $this->name = $data->name;
-            $this->email = $data->email;
+            $this->category_id = $data->id;
+            $this->category = $data->name;
         } else {
-            return redirect()->to(route('admin.employees'))->with('error', 'Record Not Found.');
+            return redirect()->to(route('blogs.categories'))->with('error', 'Record Not Found.');
         }
     }
 
     public function renderDeleteModal($id)
     {
-        $this->employee_id = $id;
+        $this->category_id = $id;
     }
 
     public function add()
@@ -68,10 +71,8 @@ class ManageEmployees extends Component
         $this->validate();
         try {
             /* Perform some operation */
-            $inserted = User::create([
-                'name' => $this->name,
-                'email' => $this->email,
-                'password' => $this->password
+            $inserted = Category::create([
+                'name' => $this->category
             ]);
             /* Operation finished */
             $this->resetModal();
@@ -93,12 +94,8 @@ class ManageEmployees extends Component
         $this->validate();
         try {
             /* Perform some operation */
-            $updated = User::where('id', '=', $this->employee_id)
-                ->update([
-                    'name' => $this->name,
-                    'email' => $this->email,
-                    'password' => Hash::make($this->password),
-                ]);
+            $updated = Category::where('id', '=', $this->category_id)
+                                ->update(['name' => $this->category]);
             /* Operation finished */
             $this->resetModal();
             sleep(1);
@@ -118,7 +115,7 @@ class ManageEmployees extends Component
     {
         try {
             /* Perform some operation */
-            $deleted = User::delEmployee($this->employee_id);
+            $deleted = Category::find($this->category_id)->delete();
             /* Operation finished */
             sleep(1);
             $this->dispatchBrowserEvent('close-modal', ['id' => 'deleteModal']);
@@ -145,21 +142,8 @@ class ManageEmployees extends Component
         $this->$form_name();
     }
 
-    public function changeStatus($id, $email_verified_at)
+    public function selectSingleCheckbox()
     {
-        try {
-            /* Perform some operation */
-            $status_cahnged = User::activeOrBlockEmployee($id, $email_verified_at);
-            /* Operation finished */
-            if ($status_cahnged) {
-                $this->resetPage();
-            } else {
-                session()->flash('error', config('messages.STATUS_CHANGING_FAILED'));
-            }
-        } catch (Exception $error) {
-            report($error);
-            session()->flash('error', config('messages.INVALID_DATA'));
-        }
     }
 
     public function updatingSearch()
@@ -169,7 +153,14 @@ class ManageEmployees extends Component
 
     public function render()
     {
-        $data = User::getEmployees($this->search);
-        return view('livewire.admin.manage-employees', ['data' => $data]);
-    } 
+        if (!empty($this->search)) {
+            $data = Category::getCategories();
+        } else {
+            $data = Category::searchCategories($this->search);
+            // To update the child components after search is initiated
+            $this->categories_page++;
+        }
+
+        return view('livewire.employee.blogs.blogs-categories', ['data' => $data]);
+    }
 }
