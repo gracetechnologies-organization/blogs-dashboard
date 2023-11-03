@@ -8,7 +8,6 @@ use App\Http\Livewire\Employee\Blogs\BlogsPublished;
 use App\Http\Livewire\Employee\Blogs\BlogsRender;
 use App\Http\Livewire\Employee\Blogs\BlogsUnpublished;
 use App\Http\Livewire\Employee\Blogs\CreateBlogs;
-use App\Http\Livewire\Employee\Blogs\EditPublishedBlog;
 
 Route::prefix('blog')->group(function () {
     Route::get('create', CreateBlogs::class)->name('blogs.create');
