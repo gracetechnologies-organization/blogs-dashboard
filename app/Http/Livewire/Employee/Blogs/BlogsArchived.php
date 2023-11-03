@@ -9,14 +9,13 @@ use Livewire\WithPagination;
 
 class BlogsArchived extends Component
 {
-    use
-        WithPagination;
-
-    protected $paginationTheme = 'bootstrap';
+    use WithPagination;
 
     public
         $BlogID,
         $Search = '';
+
+    protected $paginationTheme = 'bootstrap';
 
     public function resetAllErrors()
     {
@@ -24,20 +23,19 @@ class BlogsArchived extends Component
         $this->resetValidation();
     }
 
-    public function renderDeleteModal($id)
-    {
-        $this->BlogID = $id;
-
-    }
-
     public function resetModal()
     {
         $this->resetAllErrors();
     }
 
+    public function renderDeleteModal($id)
+    {
+        $this->BlogID = $id;
+    }   
+
     public function renderRestoreModal($id)
     {
-        $this->BlogID =$id;
+        $this->BlogID = $id;
     }
 
     public function restore()
@@ -87,9 +85,7 @@ class BlogsArchived extends Component
 
     public function render()
     {
-        $data = Blog::getBlogName($this->Search);
-        $Data = Blog::getArchivedBlog();
-        return view('livewire.employee.blogs.blogs-archived',['data' =>$data , 'Data' => $Data]);
+        $Data = Blog::getArchivedBlog($this->Search);
+        return view('livewire.employee.blogs.blogs-archived', ['Data' => $Data]);
     }
-    
 }

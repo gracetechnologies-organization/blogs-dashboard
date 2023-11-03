@@ -57,14 +57,14 @@ class BlogsUnpublished extends Component
     public function resetModal()
     {
         $this->resetAllErrors();
-        $this->Image ;
-        $this->Title= '';
-        $this->MetaTitle= '';
-        $this->MetaDescription= '';
-        $this->Category= '';
-        $this->Status= '';
-        $this->Excerpt= '';
-        $this->Blog ='';
+        $this->Image;
+        $this->Title = '';
+        $this->MetaTitle = '';
+        $this->MetaDescription = '';
+        $this->Category = '';
+        $this->Status = '';
+        $this->Excerpt = '';
+        $this->Blog = '';
     }
 
     public function resetAllErrors()
@@ -94,16 +94,15 @@ class BlogsUnpublished extends Component
     public function renderDeleteModal($id)
     {
         $this->BlogID = $id;
-
     }
 
     public function updateImage()
     {
         $this->validateOnly('Image');
         try {
-            $Image =ImageManipulation::getImgURL($this->Image);
+            $Image = ImageManipulation::getImgURL($this->Image);
             $updated = Blog::where('id', '=', $this->BlogID)
-                        ->update(['image' =>  $Image]);
+                ->update(['image' =>  $Image]);
             sleep(1);
             if ($updated) {
                 session()->flash('success', config('messages.UPDATION_SUCCESS'));
@@ -123,7 +122,7 @@ class BlogsUnpublished extends Component
             session()->flash('error', 'Record Not Found.');
             return;
         }
-        try {    
+        try {
 
             // Check if the Image property is updated
             if ($this->Image) {
@@ -171,7 +170,6 @@ class BlogsUnpublished extends Component
             report($error);
             session()->flash('error', config('messages.INVALID_DATA'));
         }
-    
     }
     /**
      * The sole purpose of this function is to resolve the double-click problem
@@ -209,9 +207,6 @@ class BlogsUnpublished extends Component
     public function render()
     {
         $Data = Blog::getBlogs(0, $this->Search);
-        // dd($data);
-        // $Data = Blog::getUnpublishedBlog();
-        // return view('livewire.employee.blogs.blogs-unpublished',['data' =>$data , 'Data' => $Data]);
-        return view('livewire.employee.blogs.blogs-unpublished',['Data' =>$Data]);
+        return view('livewire.employee.blogs.blogs-unpublished', ['Data' => $Data]);
     }
 }

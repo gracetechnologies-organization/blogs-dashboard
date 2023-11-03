@@ -16,6 +16,6 @@ class BlogsRender extends Component
 
     public function render()
     {
-        return view('livewire.employee.blogs.blogs-render',['Data'=>$this->ID]);
+        return view('livewire.employee.blogs.blogs-render', ['Data' => $this->ID]);
     }
 }

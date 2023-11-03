@@ -95,7 +95,7 @@ class BlogsCategories extends Component
         try {
             /* Perform some operation */
             $updated = Category::where('id', '=', $this->category_id)
-                                ->update(['name' => $this->category]);
+                ->update(['name' => $this->category]);
             /* Operation finished */
             $this->resetModal();
             sleep(1);

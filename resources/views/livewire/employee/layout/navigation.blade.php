@@ -27,7 +27,7 @@
                  </li>
                  <li class="menu-item @if (Route::current()->uri == 'blog/categories') active @endif">
                     <a href="{{ route('blogs.category') }}" class="menu-link">
-                        <i class="menu-icon tf-icons fa-solid fa-chalkboard fa-bounce"></i>
+                        <i class="menu-icon fa-solid fa-tags fa-bounce"></i>
                         <div data-i18n="Analytics">Categories</div>
                     </a>
                 </li>

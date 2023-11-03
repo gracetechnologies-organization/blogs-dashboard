@@ -18,6 +18,7 @@ Route::prefix('blog')->group(function () {
     Route::get('categories', BlogsCategories::class)->name('blogs.category');
     Route::get('render-blog/{ID}', BlogsRender::class)->name('blogs.render');
 });
+
 Route::post('blog-create',[BlogController::class ,'createBlog'])->name('create.blog');
 Route::get('blog-edit-published/{ID}', [BlogController::class, 'editBlog'])->name('blogs.edit.published');
 Route::post('blog-update-published/{ID}', [BlogController::class, 'updateBlog'])->name('update.blog');

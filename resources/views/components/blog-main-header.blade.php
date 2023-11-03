@@ -9,8 +9,7 @@
 
 <body class="font-sans antialiased">
     @if (session()->has('error'))
-        <div class="top-0 m-2 bs-toast toast toast-placement-ex fade bg-danger end-0 show" role="alert"
-            aria-live="assertive" aria-atomic="true" data-delay="2000">
+        <div class="top-0 m-2 bs-toast toast toast-placement-ex fade bg-danger end-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
             <div class="toast-header">
                 <i class="bx bx-bell me-2"></i>
                 <div class="me-auto fw-semibold">Error</div>
@@ -22,8 +21,7 @@
         </div>
     @endif
     @if (session()->has('success'))
-        <div class="top-0 m-2 bs-toast toast toast-placement-ex fade bg-success end-0 show" role="alert"
-            aria-live="assertive" aria-atomic="true" data-delay="2000">
+        <div class="top-0 m-2 bs-toast toast toast-placement-ex fade bg-success end-0 show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
             <div class="toast-header">
                 <i class="bx bx-bell me-2"></i>
                 <div class="me-auto fw-semibold">Success</div>
@@ -37,9 +35,9 @@
     <div>
         <div class="min-h-screen bg-gray-100">
             @if (Auth::user()->role_id === 'emp')
-                @include('livewire.employee.layout.header')
+                @include('livewire.employee.layout.navigation')
             @elseif (Auth::user()->role_id === 'admin')
-                @include('livewire.admin.layout.header')
+                @include('livewire.admin.layout.navigation')
             @endif
             <!-- Page Content -->
             <main>

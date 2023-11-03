@@ -10,9 +10,9 @@
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
         @if (Auth::user()->role_id === 'emp')
-            @include('livewire.employee.layout.header')
+            @include('livewire.employee.layout.navigation')
         @elseif (Auth::user()->role_id === 'admin')
-            @include('livewire.admin.layout.header')
+            @include('livewire.admin.layout.navigation')
         @endif
         <!-- Page Content -->
         <main>

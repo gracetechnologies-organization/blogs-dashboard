@@ -56,14 +56,14 @@ class BlogsPublished extends Component
     public function resetModal()
     {
         $this->resetAllErrors();
-        $this->Image ;
-        $this->Title= '';
-        $this->MetaTitle= '';
-        $this->MetaDescription= '';
-        $this->Category= '';
-        $this->Status= '';
-        $this->Excerpt= '';
-        $this->Blog ='';
+        $this->Image;
+        $this->Title = '';
+        $this->MetaTitle = '';
+        $this->MetaDescription = '';
+        $this->Category = '';
+        $this->Status = '';
+        $this->Excerpt = '';
+        $this->Blog = '';
     }
 
     public function resetAllErrors()
@@ -93,16 +93,15 @@ class BlogsPublished extends Component
     public function renderDeleteModal($id)
     {
         $this->BlogID = $id;
-
     }
 
     public function updateImage()
     {
         $this->validateOnly('Image');
         try {
-            $Image =ImageManipulation::getImgURL($this->Image);
+            $Image = ImageManipulation::getImgURL($this->Image);
             $updated = Blog::where('id', '=', $this->BlogID)
-                        ->update(['image' =>  $Image]);
+                ->update(['image' =>  $Image]);
             sleep(1);
             if ($updated) {
                 session()->flash('success', config('messages.UPDATION_SUCCESS'));
@@ -170,7 +169,6 @@ class BlogsPublished extends Component
             report($error);
             session()->flash('error', config('messages.INVALID_DATA'));
         }
-
     }
     /**
      * The sole purpose of this function is to resolve the double-click problem
@@ -207,8 +205,7 @@ class BlogsPublished extends Component
 
     public function render()
     {
-        $Data  = Blog::getBlogs(1,$this->Search);
-        return view('livewire.employee.blogs.blogs-published',['Data' => $Data]);
+        $Data  = Blog::getBlogs(1, $this->Search);
+        return view('livewire.employee.blogs.blogs-published', ['Data' => $Data]);
     }
 }
-

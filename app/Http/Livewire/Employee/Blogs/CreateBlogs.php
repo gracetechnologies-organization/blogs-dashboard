@@ -13,16 +13,15 @@ class CreateBlogs extends Component
 {
     use WithFileUploads;
     public
-           $Image,
-           $Title,
-           $MetaTitle,
-           $MetaDescription,
-           $Category,
-           $Status,
-           $Excerpt,
-           $Blog,
-           $Categories = ''
-           ;
+        $Image,
+        $Title,
+        $MetaTitle,
+        $MetaDescription,
+        $Category,
+        $Status,
+        $Excerpt,
+        $Blog,
+        $Categories = '';
 
     protected $rules = [
         'Image' => 'required|Image|mimes:jpeg,png,jpg,gif,svg,webp|max:2024',
@@ -35,22 +34,22 @@ class CreateBlogs extends Component
         'Blog' => 'required|string',
     ];
 
-    public function updated($PropertyName)
-    {
-        $this->validateOnly($PropertyName);
-    }
-
     public function mount()
     {
         $this->Categories = Blog::getCategories();
     }
 
+    public function updated($PropertyName)
+    {
+        $this->validateOnly($PropertyName);
+    }
+
     public function savePost(Request $Req)
     {
+        $this->validate();
         try {
-            $this->validate();
-            $Image =ImageManipulation::getImgURL($this->Image);
-            $Inserted =Blog::insertBlog($Image, $this->Title, $this->MetaTitle, $this->MetaDescription, $this->Category, $this->Status, $this->Excerpt, $this->Blog);
+            $Image = ImageManipulation::getImgURL($this->Image);
+            $Inserted = Blog::insertBlog($Image, $this->Title, $this->MetaTitle, $this->MetaDescription, $this->Category, $this->Status, $this->Excerpt, $this->Blog);
             if ($Inserted) {
                 session()->flash('success', config('messages.INSERTION_SUCCESS'));
             } else {
