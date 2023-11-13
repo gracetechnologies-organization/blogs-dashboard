@@ -41,7 +41,7 @@
         <div id="cms-block-b" class="cms-block cms-block-element col-md-3">
             <div class="small-box small-box-custom-styles">
                 <div class="inner">
-                    <h3>{{ $total_levels }}</h3>
+                    <h3>static</h3>
                     <p>Total Levels</p>
                 </div>
                 <div class="icon">
@@ -55,7 +55,7 @@
         <div id="cms-block-b" class="cms-block cms-block-element col-md-3">
             <div class="small-box small-box-custom-styles">
                 <div class="inner">
-                    <h3>{{ $total_programs }}</h3>
+                    <h3>static</h3>
                     <p>Total Programs</p>
                 </div>
                 <div class="icon">
@@ -66,7 +66,7 @@
         <div id="cms-block-b" class="cms-block cms-block-element col-md-3">
             <div class="small-box small-box-custom-styles">
                 <div class="inner">
-                    <h3>{{ $total_exercises }}</h3>
+                    <h3>static</h3>
                     <p>Total Exercises</p>
                 </div>
                 <div class="icon">
