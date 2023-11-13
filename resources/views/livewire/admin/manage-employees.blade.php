@@ -150,7 +150,7 @@
                             </div>
                             <div class="card-footer custom-card-footer">
                                 <div class="media">
-                                    <img class="mr-3 rounded-circle" src="{{ asset('storage/images/dummyemp.png') }}"
+                                    <img class="mr-3 rounded-circle" src="{{ asset('web-images/others/dummyemp.png') }}"
                                         alt="Generic placeholder image" style="max-width:50px">
                                     <div class="media-body">
                                         <h6 class="my-0 text-white d-block">{{ $single_index->name }}</h6>
