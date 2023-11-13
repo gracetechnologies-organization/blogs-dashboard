@@ -285,7 +285,7 @@
                 </div>
             </div>
             @empty
-            <h1 class="text-dark">No Uppublished Yet :(</h1>
+            <h1 class="text-dark">No Unpublished Blogs Yet :(</h1>
             @endforelse
         </div>
         <div class="row">

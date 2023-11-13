@@ -137,7 +137,7 @@
                 </div>
             </div>
             @empty
-            <h1 class="text-dark">No Blogs Archived Yet :(</h1>
+            <h1 class="text-dark">No Archived Blogs Yet :(</h1>
             @endforelse
         </div>
         <div class="row">

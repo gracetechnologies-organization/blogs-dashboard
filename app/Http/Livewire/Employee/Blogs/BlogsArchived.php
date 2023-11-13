@@ -73,9 +73,9 @@ class BlogsArchived extends Component
         }
     }
 
-    public function submitForm($form_name)
+    public function submitForm($FormName)
     {
-        $this->$form_name();
+        $this->$FormName();
     }
 
     public function updatingSearch()

@@ -12,36 +12,34 @@ class BlogsCategories extends Component
     use WithPagination;
 
     public
-        $category_id,
-        $category,
-        $search = '',
-        $categories_page,
-        $child_checkboxes_checked = false;
-
-    // protected $listeners = ['postAdded' => 'showAlert'];
+        $CategoryID,
+        $Category,
+        $Search = '',
+        $CategoriesPage,
+        $ChildCheckboxesChecked = false;
 
     protected $paginationTheme = 'bootstrap';
 
     protected $rules = [
-        'category' => 'required|string|unique:categories,name|regex:/^[A-Za-z\s]+$/'
+        'Category' => 'required|string|unique:categories,name|regex:/^[A-Za-z\s]+$/'
     ];
 
     protected $messages = [
-        'category.required' => 'Mere bhai category must hai 😒',
-        'category.unique' => 'Yar unique data daal bhangra na daal 😒',
-        'category.regex' => 'Jigar sirf letters dalo 🙂'
+        'Category.required' => 'Mere bhai category must hai 😒',
+        'Category.unique' => 'Yar unique data daal bhangra na daal 😒',
+        'Category.regex' => 'Jigar sirf letters dalo 🙂'
     ];
 
-    public function updated($property_name)
+    public function updated($PropertyName)
     {
-        $this->validateOnly($property_name);
+        $this->validateOnly($PropertyName);
     }
 
     public function resetModal()
     {
         $this->resetAllErrors();
-        $this->category_id = '';
-        $this->category = '';
+        $this->CategoryID = '';
+        $this->Category = '';
     }
 
     public function resetAllErrors()
@@ -50,20 +48,20 @@ class BlogsCategories extends Component
         $this->resetValidation();
     }
 
-    public function renderEditModal($id)
+    public function renderEditModal($ID)
     {
-        $data = Category::find($id);
+        $data = Category::find($ID);
         if ($data) {
-            $this->category_id = $data->id;
-            $this->category = $data->name;
+            $this->CategoryID = $data->id;
+            $this->Category = $data->name;
         } else {
             return redirect()->to(route('blogs.categories'))->with('error', 'Record Not Found.');
         }
     }
 
-    public function renderDeleteModal($id)
+    public function renderDeleteModal($ID)
     {
-        $this->category_id = $id;
+        $this->CategoryID = $ID;
     }
 
     public function add()
@@ -72,7 +70,7 @@ class BlogsCategories extends Component
         try {
             /* Perform some operation */
             $inserted = Category::create([
-                'name' => $this->category
+                'name' => $this->Category
             ]);
             /* Operation finished */
             $this->resetModal();
@@ -94,8 +92,8 @@ class BlogsCategories extends Component
         $this->validate();
         try {
             /* Perform some operation */
-            $updated = Category::where('id', '=', $this->category_id)
-                ->update(['name' => $this->category]);
+            $updated = Category::where('id', '=', $this->CategoryID)
+                ->update(['name' => $this->Category]);
             /* Operation finished */
             $this->resetModal();
             sleep(1);
@@ -115,7 +113,7 @@ class BlogsCategories extends Component
     {
         try {
             /* Perform some operation */
-            $deleted = Category::find($this->category_id)->delete();
+            $deleted = Category::deleteCategory($this->CategoryID);
             /* Operation finished */
             sleep(1);
             $this->dispatchBrowserEvent('close-modal', ['id' => 'deleteModal']);
@@ -137,13 +135,9 @@ class BlogsCategories extends Component
      * The given form action manually
      * @author Muhammad Abdullah Mirza
      */
-    public function submitForm($form_name)
+    public function submitForm($FormName)
     {
-        $this->$form_name();
-    }
-
-    public function selectSingleCheckbox()
-    {
+        $this->$FormName();
     }
 
     public function updatingSearch()
@@ -153,14 +147,13 @@ class BlogsCategories extends Component
 
     public function render()
     {
-        if (!empty($this->search)) {
+        if (!empty($this->Search)) {
             $data = Category::getCategories();
         } else {
-            $data = Category::searchCategories($this->search);
+            $data = Category::searchCategories($this->Search);
             // To update the child components after search is initiated
-            $this->categories_page++;
+            $this->CategoriesPage++;
         }
-
         return view('livewire.employee.blogs.blogs-categories', ['data' => $data]);
     }
 }

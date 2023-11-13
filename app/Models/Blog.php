@@ -65,7 +65,6 @@ class Blog extends Model
 
     public static function insertBlog(string $Image, string $Title, string $MetaTitle, string $MetaDescription, int $Category, int $Status, string $Excerpt, string $Blog)
     {
-        $StatusToSave = $Status === 1 ? 1 : 0;
         return Blog::create([
             'image' => $Image,
             'title' => $Title,
@@ -73,7 +72,7 @@ class Blog extends Model
             'meta_description' => $MetaDescription,
             'cat_id' => $Category,
             'author_id' => auth()->user()->id,
-            'status' => $StatusToSave,
+            'status' => $Status,
             'excerpt' => $Excerpt,
             'blog' => $Blog
         ]);

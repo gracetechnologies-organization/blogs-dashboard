@@ -8,20 +8,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
+    use HasFactory, SoftDeletes;
 
-    use
-        HasFactory,
-        SoftDeletes;
-    protected $fillable =
-    [
-        'name',
+    protected $fillable = [
+        'name'
     ];
-    
     /*
     |--------------------------------------------------------------------------
     | Custom Helper Functions
     |--------------------------------------------------------------------------
     */
+    public static function deleteCategory(int $ID)
+    {
+        return self::find($ID)->forceDelete();
+    }
 
     public static function getCategories()
     {

@@ -140,9 +140,9 @@ class ManageEmployees extends Component
      * The given form action manually
      * @author Muhammad Abdullah Mirza
      */
-    public function submitForm($form_name)
+    public function submitForm($FormName)
     {
-        $this->$form_name();
+        $this->$FormName();
     }
 
     public function changeStatus($id, $email_verified_at)

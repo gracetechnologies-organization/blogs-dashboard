@@ -44,22 +44,22 @@ class CreateBlogs extends Component
         $this->validateOnly($PropertyName);
     }
 
-    public function savePost(Request $Req)
-    {
-        $this->validate();
-        try {
-            $Image = ImageManipulation::getImgURL($this->Image);
-            $Inserted = Blog::insertBlog($Image, $this->Title, $this->MetaTitle, $this->MetaDescription, $this->Category, $this->Status, $this->Excerpt, $this->Blog);
-            if ($Inserted) {
-                session()->flash('success', config('messages.INSERTION_SUCCESS'));
-            } else {
-                session()->flash('error', config('messages.INSERTION_FAILED'));
-            }
-        } catch (Exception $error) {
-            report($error);
-            session()->flash('error', config('messages.INVALID_DATA'));
-        }
-    }
+    // public function savePost(Request $Req)
+    // {
+    //     $this->validate();
+    //     try {
+    //         $Image = ImageManipulation::getImgURL($this->Image);
+    //         $Inserted = Blog::insertBlog($Image, $this->Title, $this->MetaTitle, $this->MetaDescription, $this->Category, $this->Status, $this->Excerpt, $this->Blog);
+    //         if ($Inserted) {
+    //             session()->flash('success', config('messages.INSERTION_SUCCESS'));
+    //         } else {
+    //             session()->flash('error', config('messages.INSERTION_FAILED'));
+    //         }
+    //     } catch (Exception $error) {
+    //         report($error);
+    //         session()->flash('error', config('messages.INVALID_DATA'));
+    //     }
+    // }
 
     public function render()
     {

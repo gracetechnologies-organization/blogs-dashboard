@@ -13,10 +13,7 @@ use Livewire\WithFileUploads;
 
 class BlogsUnpublished extends Component
 {
-
-    use
-        WithPagination,
-        WithFileUploads;
+    use WithPagination, WithFileUploads;
 
     protected $paginationTheme = 'bootstrap';
 
@@ -57,7 +54,7 @@ class BlogsUnpublished extends Component
     public function resetModal()
     {
         $this->resetAllErrors();
-        $this->Image;
+        $this->Image = '';
         $this->Title = '';
         $this->MetaTitle = '';
         $this->MetaDescription = '';
@@ -123,7 +120,6 @@ class BlogsUnpublished extends Component
             return;
         }
         try {
-
             // Check if the Image property is updated
             if ($this->Image) {
                 // Process image update here, e.g., move the uploaded file and update the database
@@ -152,7 +148,6 @@ class BlogsUnpublished extends Component
         $this->resetModal();
     }
 
-
     public function destroy()
     {
         try {
@@ -179,9 +174,9 @@ class BlogsUnpublished extends Component
      * The given form action manually
      * @author Muhammad Abdullah Mirza
      */
-    public function submitForm($form_name)
+    public function submitForm($FormName)
     {
-        $this->$form_name();
+        $this->$FormName();
     }
 
     public function changeStatus($BlogID, $Status)
