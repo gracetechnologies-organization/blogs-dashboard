@@ -1,11 +1,14 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
-    | Custom File For Storing Constants Other Then Messages
+    | Application Contants
     |--------------------------------------------------------------------------
+    | Custom File For Storing Constants Other Then Messages
     */
-    'APP_LOGO_FILE' => 'logo.png'
+
+    'LOGO_LOCATION' => 'web-images/logo/logo.png'
     
 ];

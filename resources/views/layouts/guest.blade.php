@@ -7,7 +7,7 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
         <!-- Favicon -->
-        <link rel="icon" type="image/x-icon" href="{{ asset('storage/images/') . '/' .  config('constants.APP_LOGO_FILE') }}" />
+        <link rel="icon" type="image/x-icon" href="{{ asset(config('constants.LOGO_LOCATION'))}}" />
         <!-- Fonts -->
         
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
