@@ -7,12 +7,27 @@ use App\Models\Blog;
 use DOMDocument;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class BlogController extends Controller
 {
     public function createBlog(Request $Req)
     {
         try {
+            // Validation rules
+            $rules = [
+                'Title' => 'required',
+                'Image' => 'required|max:2024',
+                'MetaTitle' => 'required',
+                'MetaDescription' => 'required',
+                'Category' => 'required',
+                'Status' => 'required',
+                'Excerpt' => 'required',
+                'Blog' => 'required',
+            ];
+            // Validate
+            $Req->validate($rules);
+
             if ($Req->hasFile('Image')) {
                 $Image = $Req->file('Image');
                 $imageName = time() . '.' . $Image->getClientOriginalExtension();
@@ -34,10 +49,13 @@ class BlogController extends Controller
             $Blog = $dom->saveHTML();
             $Inserted = Blog::insertBlog($imageName, $Req->Title, $Req->MetaTitle, $Req->MetaDescription, $Req->Category, $Status, $Req->Excerpt, $Req->Blog);
             if ($Inserted) {
-                return redirect()->route('blogs.create')->with('success', config('messages.INSERTION_SUCCESS'));
+                return redirect()->route('blogs.unpublished')->with('success', config('messages.INSERTION_SUCCESS'));
             } else {
                 return redirect()->back()->with('success', config('messages.INSERTION_FAILED'));
             }
+        } catch (ValidationException $error) {
+            // Handle validation errors
+            return redirect()->back()->withErrors($error->errors())->withInput();
         } catch (Exception $error) {
             report($error);
             session()->flash('error', config('messages.INVALID_DATA'));
@@ -55,6 +73,20 @@ class BlogController extends Controller
     public function updateBlog(Request $Req, $id)
     {
         try {
+            // dd($Req->all());
+            $rules = [
+                'Image' => 'image|mimes:png,jpeg,jpg,bmp,gif,svg,webp|max:2024',
+                'Title' => 'required',
+                'MetaTitle' => 'required',
+                'MetaDescription' => 'required',
+                'Category' => 'required',
+                'Status' => 'required',
+                'Excerpt' => 'required',
+                'Blog' => 'required',
+            ];
+            // Validate
+            $Req->validate($rules);
+
             $existingBlog = Blog::find($id);
             if ($Req->hasFile('Image')) {
                 $Image = $Req->file('Image');
@@ -94,6 +126,9 @@ class BlogController extends Controller
             } else {
                 return redirect()->back()->with('error', config('messages.UPDATION_FAILED'));
             }
+        } catch (ValidationException $error) {
+            // Handle validation errors
+            return redirect()->back()->withErrors($error->errors())->withInput();
         } catch (Exception $error) {
             report($error);
             session()->flash('error', config('messages.INVALID_DATA'));

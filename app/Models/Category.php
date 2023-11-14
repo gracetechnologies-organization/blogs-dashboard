@@ -18,6 +18,11 @@ class Category extends Model
     | Custom Helper Functions
     |--------------------------------------------------------------------------
     */
+    public static function updateCategory(int $ID, string $Category)
+    {
+       return self::where('id', '=', $ID)->update(['name'=>$Category]);
+    }
+
     public static function deleteCategory(int $ID)
     {
         return self::find($ID)->forceDelete();

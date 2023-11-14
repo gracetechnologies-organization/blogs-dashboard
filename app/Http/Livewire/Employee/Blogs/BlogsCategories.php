@@ -92,8 +92,7 @@ class BlogsCategories extends Component
         $this->validate();
         try {
             /* Perform some operation */
-            $updated = Category::where('id', '=', $this->CategoryID)
-                ->update(['name' => $this->Category]);
+            $updated = Category::updateCategory($this->CategoryID,$this->Category);
             /* Operation finished */
             $this->resetModal();
             sleep(1);

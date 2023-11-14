@@ -26,7 +26,7 @@
     </div>
     @endif
     {{-- ************************************ Edit Un Published Model ************************************ --}}
-    <div wire:ignore.self class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
+    {{-- <div wire:ignore.self class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -190,7 +190,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- ************************************ Delete Employee Model ************************************ --}}
     <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
         aria-hidden="true">
@@ -241,22 +241,18 @@
                     style="background-image:url('{{ asset('storage/blog_images/'. $Unpublished->image)}}');">
                     <div class="card-img-overlay custom-card-img-overlay d-flex flex-column">
                         <div class="card-body custom-card-body">
-
                             <a href="{{ route('blogs.edit.un.published', $Unpublished->id)}}">
                                 <button type="button" class="btn btn-outline-info btn-sm">
                                     <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                                 </button>
                             </a>
-
                             <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal" wire:click="renderDeleteModal({{ $Unpublished->id }})">
                                 <i class="fa-regular fa-box-archive"></i>
                             </button>
-
                         </div>
                         <div class="card-footer custom-card-footer">
                             <div class="media">
-
                                 <img class="mr-3 rounded-circle"
                                     src="{{ asset('storage/blog_images/'. $Unpublished->image) }}"
                                     alt="Generic placeholder image" style="max-width:50px">
@@ -268,7 +264,6 @@
                                     <small><i class="far fa-clock"></i> Joining:
                                         {{ $Unpublished->created_at }}</small>
                                 </div>
-
                                 <div class="mt-3 form-check form-switch">
                                     <input type="checkbox" class="form-check-input form-check-input-custom"
                                         value="{{ $Unpublished->status ? '1' : '0' }}"
