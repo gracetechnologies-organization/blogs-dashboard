@@ -7,6 +7,8 @@ use App\Models\Blog;
 use DOMDocument;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class BlogController extends Controller
@@ -14,26 +16,25 @@ class BlogController extends Controller
     public function createBlog(Request $Req)
     {
         try {
-            // Validation rules
+            // dd($Req->all())
             $rules = [
                 'Title' => 'required',
+                'Slug' => 'required',
                 'Image' => 'required|max:2024',
                 'MetaTitle' => 'required',
                 'MetaDescription' => 'required',
                 'Category' => 'required',
-                'Status' => 'required',
                 'Excerpt' => 'required',
                 'Blog' => 'required',
-            ];
+            ]; 
             // Validate
-            $Req->validate($rules);
-
+            $Req->validate($rules);         
             if ($Req->hasFile('Image')) {
                 $Image = $Req->file('Image');
                 $imageName = time() . '.' . $Image->getClientOriginalExtension();
                 $Image->move(public_path('storage/blog_images'), $imageName);
             }
-            $Status = ($Req->Status === null) ? 0 : 1;
+            
             $Blog = $Req->Blog;
             $dom = new DOMDocument();
             $Blog = preg_replace('/<wbr[^>]*>/', '', $Blog);
@@ -47,9 +48,10 @@ class BlogController extends Controller
                 $img->setAttribute('src', $image_name);
             }
             $Blog = $dom->saveHTML();
-            $Inserted = Blog::insertBlog($imageName, $Req->Title, $Req->MetaTitle, $Req->MetaDescription, $Req->Category, $Status, $Req->Excerpt, $Req->Blog);
+            $Status = ($Req->Status === null) ? 0 : 1;
+            $Inserted = Blog::insertBlog($imageName, $Req->Title, $Req->Slug, $Req->MetaTitle, $Req->MetaDescription, $Req->Category, $Status, $Req->Excerpt, $Req->Blog);
             if ($Inserted) {
-                return redirect()->route('blogs.unpublished')->with('success', config('messages.INSERTION_SUCCESS'));
+                return redirect()->back()->with('success', config('messages.INSERTION_SUCCESS'));
             } else {
                 return redirect()->back()->with('success', config('messages.INSERTION_FAILED'));
             }
@@ -77,10 +79,11 @@ class BlogController extends Controller
             $rules = [
                 'Image' => 'image|mimes:png,jpeg,jpg,bmp,gif,svg,webp|max:2024',
                 'Title' => 'required',
+                'Slug' => 'required',
                 'MetaTitle' => 'required',
                 'MetaDescription' => 'required',
                 'Category' => 'required',
-                'Status' => 'required',
+                // 'Status' => 'regex:/^[A-Za-z\s]+$/',
                 'Excerpt' => 'required',
                 'Blog' => 'required',
             ];
@@ -108,21 +111,22 @@ class BlogController extends Controller
                 $img->removeAttribute('src');
                 $img->setAttribute('src', $image_name);
             }
-
             $Blog = $dom->saveHTML();
+            $Status = ($Req->Status === null) ? 0 : 1;
             $Updated = Blog::where('id', $id)->update([
                 'image' => $imageName,
                 'title' => $Req->Title,
+                'slug' => $Req->Slug,
                 'meta_title' => $Req->MetaTitle,
                 'meta_description' => $Req->MetaDescription,
                 'cat_id' => $Req->Category,
                 'author_id' => auth()->user()->id,
-                'status' => $Req->Status === 1 ? 1 : 0,
+                'status' => $Status,
                 'excerpt' => $Req->Excerpt,
                 'blog' => $Blog
             ]);
             if ($Updated) {
-                return redirect()->back()->with('success', config('messages.UPDATION_SUCCESS'));
+                return redirect()->route('blogs.published')->with('success', config('messages.UPDATION_SUCCESS'));
             } else {
                 return redirect()->back()->with('error', config('messages.UPDATION_FAILED'));
             }

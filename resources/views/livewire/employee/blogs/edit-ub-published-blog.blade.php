@@ -41,6 +41,17 @@
                 </div>
                 <div class="row">
                     <div class="mb-3 col">
+                        <label for="Title" class="form-label">Slug</label>
+                        <input type="text" placeholder="Enter Blog Title" name="Slug" value="{{ $Data->slug }}" class="form-control">
+                        <small class="text-danger">
+                            @error('Slug')
+                                {{ $message }}
+                            @enderror
+                        </small>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col">
                         <label for="MetaTitle" class="form-label">Meta Title</label>
                         <input type="text" placeholder="Enter Blog Mete Title" name="MetaTitle" value="{{ $Data->meta_title }}" class="form-control">
                         <small class="text-danger">
@@ -83,7 +94,7 @@
                     <div class="mb-3 col">
                         <p class="form-label">Status</p>
                         <div class="checkbox">
-                            <input type="checkbox" name="Status" @if ($Data->status) checked @endif value="1">&nbsp;&nbsp;<span>Published</span><br>
+                            <input type="checkbox" name="Status" @if ($Data->status) checked @endif>&nbsp;&nbsp;<span>Published</span><br>
                             <small class="text-danger">
                                 @error('Status')
                                     {{ $message }}

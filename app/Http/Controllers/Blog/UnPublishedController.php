@@ -13,7 +13,6 @@ class UnPublishedController extends Controller
 {
     public function editBlog($ID)
     {
-        
         $updateType = 'Unpublished Blog Update';
         $Data = Blog::find($ID);
         $Categories = Blog::getCategories();
@@ -25,18 +24,18 @@ class UnPublishedController extends Controller
         try {
             // dd($Req->all());
             $rules = [
-                'Image' => 'image|required|mimes:png,jpeg,jpg,bmp,gif,svg,webp|max:2024',
+                // 'Image' => 'image|required|mimes:png,jpeg,jpg,bmp,gif,svg,webp|max:2024',
                 'Title' => 'required',
+                'Slug' => 'required',
                 'MetaTitle' => 'required',
                 'MetaDescription' => 'required',
                 'Category' => 'required',
-                'Status' => 'required',
+                // 'Status' => 'regex:/^[A-Za-z\s]+$/',
                 'Excerpt' => 'required',
                 'Blog' => 'required',
             ];
             // Validate
             $Req->validate($rules);
-
             $existingBlog = Blog::find($id);
             if ($Req->hasFile('Image')) {
                 $Image = $Req->file('Image');
@@ -58,16 +57,17 @@ class UnPublishedController extends Controller
                 $img->removeAttribute('src');
                 $img->setAttribute('src', $image_name);
             }
-
             $Blog = $dom->saveHTML();
+            $Status = ($Req->Status === null) ? 0 : 1;
             $Updated = Blog::where('id', $id)->update([
                 'image' => $imageName,
                 'title' => $Req->Title,
+                'slug' => $Req->Slug,
                 'meta_title' => $Req->MetaTitle,
                 'meta_description' => $Req->MetaDescription,
                 'cat_id' => $Req->Category,
                 'author_id' => auth()->user()->id,
-                'status' => $Req->Status,
+                'status' => $Status,
                 'excerpt' => $Req->Excerpt,
                 'blog' => $Blog
             ]);

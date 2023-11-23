@@ -25,6 +25,17 @@
     </div>
     <div class="row">
         <div class="mb-3 col">
+            <label for="Slug" class="form-label">Slug</label>
+            <input type="text" name="Slug" placeholder="Enter Blog Slug" value="{{old('Slug')}}" class="form-control"> 
+            <small class="text-danger">
+                @error('Slug')
+                    {{ $message }}
+                @enderror
+            </small>         
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col">
             <label for="MetaTitle" class="form-label">Meta Title</label>
             <input type="text" placeholder="Enter Blog Mete Title" name="MetaTitle" value="{{old('MetaTitle')}}" wire:model.defer="MetaTitle" class="form-control">
             <small class="text-danger">

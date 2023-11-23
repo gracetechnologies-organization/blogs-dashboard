@@ -14,6 +14,7 @@ class Blog extends Model
     protected $fillable = [
         'image',
         'title',
+        'slug',
         'meta_title',
         'meta_description',
         'cat_id',
@@ -63,11 +64,12 @@ class Blog extends Model
             ->update(['status' => $Status]);
     }
 
-    public static function insertBlog(string $Image, string $Title, string $MetaTitle, string $MetaDescription, int $Category, int $Status, string $Excerpt, string $Blog)
+    public static function insertBlog(string $Image, string $Slug, string $Title, string $MetaTitle, string $MetaDescription, int $Category, int $Status, string $Excerpt, string $Blog)
     {
         return Blog::create([
             'image' => $Image,
             'title' => $Title,
+            'slug' => $Slug,
             'meta_title' => $MetaTitle,
             'meta_description' => $MetaDescription,
             'cat_id' => $Category,
