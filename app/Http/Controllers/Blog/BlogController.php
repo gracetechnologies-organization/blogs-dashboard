@@ -48,8 +48,9 @@ class BlogController extends Controller
                 $img->setAttribute('src', $image_name);
             }
             $Blog = $dom->saveHTML();
+            $Slug = str_replace(' ', '-', $Req->Slug);
             $Status = ($Req->Status === null) ? 0 : 1;
-            $Inserted = Blog::insertBlog($imageName, $Req->Title, $Req->Slug, $Req->MetaTitle, $Req->MetaDescription, $Req->Category, $Status, $Req->Excerpt, $Req->Blog);
+            $Inserted = Blog::insertBlog($imageName, $Req->Title, $Slug, $Req->MetaTitle, $Req->MetaDescription, $Req->Category, $Status, $Req->Excerpt, $Req->Blog);
             if ($Inserted) {
                 return redirect()->back()->with('success', config('messages.INSERTION_SUCCESS'));
             } else {
