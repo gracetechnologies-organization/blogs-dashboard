@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Services\ImageManipulation;
 use DOMDocument;
 use Exception;
 use Illuminate\Http\Request;
@@ -30,9 +31,7 @@ class BlogController extends Controller
             // Validate
             $Req->validate($rules);         
             if ($Req->hasFile('Image')) {
-                $Image = $Req->file('Image');
-                $imageName = time() . '.' . $Image->getClientOriginalExtension();
-                $Image->move(public_path('storage/blog_images'), $imageName);
+                $imageName =ImageManipulation::saveBlogImages($Req->file('Image'));
             }
             
             $Blog = $Req->Blog;
@@ -76,7 +75,6 @@ class BlogController extends Controller
     public function updateBlog(Request $Req, $id)
     {
         try {
-            // dd($Req->all());
             $rules = [
                 'Image' => 'image|mimes:png,jpeg,jpg,bmp,gif,svg,webp|max:2024',
                 'Title' => 'required',
@@ -84,7 +82,6 @@ class BlogController extends Controller
                 'MetaTitle' => 'required',
                 'MetaDescription' => 'required',
                 'Category' => 'required',
-                // 'Status' => 'regex:/^[A-Za-z\s]+$/',
                 'Excerpt' => 'required',
                 'Blog' => 'required',
             ];
@@ -93,9 +90,7 @@ class BlogController extends Controller
 
             $existingBlog = Blog::find($id);
             if ($Req->hasFile('Image')) {
-                $Image = $Req->file('Image');
-                $imageName = time() . '.' . $Image->getClientOriginalExtension();
-                $Image->move(public_path('storage/blog_images'), $imageName);
+                $imageName =ImageManipulation::saveBlogImages($Req->file('Image'));
             } else {
                 $imageName = $existingBlog->image;
             }

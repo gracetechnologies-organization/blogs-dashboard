@@ -15,7 +15,7 @@
                     <div class="mb-3 col">
                         <label for="Image" class="form-label">Image*</label>
                         <div>
-                            <img src="{{ asset('storage/blog_images/' . $Data->image) }}" width="120px"> <br>
+                            <img src="{{ asset('blog_images/' . $Data->image) }}" width="120px"> <br>
                         </div>
                         <div class="mb-3 mt-2 input-group">
                             <input type="file" accept="image/png, image/jpeg, image/jpg, image/bmp, image/gif, image/svg, image/webp" name="Image" class="form-control">

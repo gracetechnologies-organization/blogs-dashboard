@@ -103,7 +103,7 @@
             @forelse ($Data as $Archived)
             <div class="mb-4 col-sm-12 col-md-6 col-lg-4">
                 <div class="text-white card custom-card custom-card-has-bg"
-                    style="background-image:url('{{ asset('storage/blog_images/'. $Archived->image)}}');">
+                    style="background-image:url('{{ asset('blog_images/'. $Archived->image)}}');">
                     <div class="card-img-overlay custom-card-img-overlay d-flex flex-column">
                         <div class="card-body custom-card-body">
                             <button type="button" title="Delete Permanently" class="btn btn-outline-danger btn-sm"
@@ -121,7 +121,7 @@
                         <div class="card-footer custom-card-footer">
                             <div class="media">
                                 <img class="mr-3 rounded-circle"
-                                    src="{{ asset('storage/blog_images/'. $Archived->image) }}"
+                                    src="{{ asset('blog_images/'. $Archived->image) }}"
                                     alt="Generic placeholder image" style="max-width:50px">
                                 <div class="media-body">
                                     <h6 class="my-0 text-white d-block"><a
