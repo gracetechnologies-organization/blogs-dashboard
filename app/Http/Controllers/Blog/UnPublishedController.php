@@ -55,28 +55,16 @@ class UnPublishedController extends Controller
                 $img->setAttribute('src', $image_name);
             }
             $Blog = $dom->saveHTML();
+            $Slug = str_replace(' ', '-', $Req->Slug);
             $Status = ($Req->Status === null) ? 0 : 1;
-            $Updated = Blog::where('id', $id)->update([
-                'image' => $imageName,
-                'title' => $Req->Title,
-                'slug' => $Req->Slug,
-                'meta_title' => $Req->MetaTitle,
-                'meta_description' => $Req->MetaDescription,
-                'cat_id' => $Req->Category,
-                'author_id' => auth()->user()->id,
-                'status' => $Status,
-                'excerpt' => $Req->Excerpt,
-                'blog' => $Blog
-            ]);
+            $Updated = Blog::updateUnPublishedBlog($id, $imageName, $Req->Title, $Slug, $Req->MetaTitle, $Req->MetaDescription, $Req->Category, $Status, $Req->Excerpt, $Blog);
             if ($Updated) {
-                // return redirect()->to_route('blogs.unpublished')->with('success', config('messages.UPDATION_SUCCESS'));
                 return redirect()->route('blogs.unpublished')->with('success', config('messages.UPDATION_SUCCESS'));
 
             } else {
                 return redirect()->back()->with('error', config('messages.UPDATION_FAILED'));
             }
         } catch (ValidationException $error) {
-            // Handle validation errors
             return redirect()->back()->withErrors($error->errors())->withInput();
         } catch (Exception $error) {
             report($error);

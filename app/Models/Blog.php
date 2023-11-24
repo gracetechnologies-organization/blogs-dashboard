@@ -79,4 +79,36 @@ class Blog extends Model
             'blog' => $Blog
         ]);
     }
+
+    public static function updatePublishedBlog(int $id, string $imageName, string $Title, string $Slug, string $MetaTitle, string $MetaDescription, int $Category, int $Status, string $Excerpt, string $Blog)
+    {
+        return self::where('id', $id)->update([
+            'image' => $imageName,
+            'title' => $Title,
+            'slug' => $Slug,
+            'meta_title' => $MetaTitle,
+            'meta_description' => $MetaDescription,
+            'cat_id' => $Category,
+            'author_id' => auth()->user()->id,
+            'status' => $Status,
+            'excerpt' => $Excerpt,
+            'blog' => $Blog
+        ]);
+    }
+    public static function updateUnPublishedBlog(int $id, string $imageName, string $Title, string $Slug, string $MetaTitle, string $MetaDescription, int $Category, int $Status, string $Excerpt, string $Blog)
+    {
+        return self::where('id', $id)->update([
+            'image' => $imageName,
+            'title' => $Title,
+            'slug' => $Slug,
+            'meta_title' => $MetaTitle,
+            'meta_description' => $MetaDescription,
+            'cat_id' => $Category,
+            'author_id' => auth()->user()->id,
+            'status' => $Status,
+            'excerpt' => $Excerpt,
+            'blog' => $Blog
+        ]);
+    }
+    
 }

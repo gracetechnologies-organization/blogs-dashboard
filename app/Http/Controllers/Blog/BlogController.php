@@ -87,7 +87,6 @@ class BlogController extends Controller
             ];
             // Validate
             $Req->validate($rules);
-
             $existingBlog = Blog::find($id);
             if ($Req->hasFile('Image')) {
                 $imageName =ImageManipulation::saveBlogImages($Req->file('Image'));
@@ -108,19 +107,21 @@ class BlogController extends Controller
                 $img->setAttribute('src', $image_name);
             }
             $Blog = $dom->saveHTML();
+            $Slug = str_replace(' ', '-', $Req->Slug);
             $Status = ($Req->Status === null) ? 0 : 1;
-            $Updated = Blog::where('id', $id)->update([
-                'image' => $imageName,
-                'title' => $Req->Title,
-                'slug' => $Req->Slug,
-                'meta_title' => $Req->MetaTitle,
-                'meta_description' => $Req->MetaDescription,
-                'cat_id' => $Req->Category,
-                'author_id' => auth()->user()->id,
-                'status' => $Status,
-                'excerpt' => $Req->Excerpt,
-                'blog' => $Blog
-            ]);
+            $Updated = Blog::updatePublishedBlog($id, $imageName, $Req->Title, $Slug, $Req->MetaTitle, $Req->MetaDescription, $Req->Category, $Status, $Req->Excerpt, $Blog);
+            //  Blog::where('id', $id)->update([
+            //     'image' => $imageName,
+            //     'title' => $Req->Title,
+            //     'slug' => $Req->Slug,
+            //     'meta_title' => $Req->MetaTitle,
+            //     'meta_description' => $Req->MetaDescription,
+            //     'cat_id' => $Req->Category,
+            //     'author_id' => auth()->user()->id,
+            //     'status' => $Status,
+            //     'excerpt' => $Req->Excerpt,
+            //     'blog' => $Blog
+            // ]);
             if ($Updated) {
                 return redirect()->route('blogs.published')->with('success', config('messages.UPDATION_SUCCESS'));
             } else {

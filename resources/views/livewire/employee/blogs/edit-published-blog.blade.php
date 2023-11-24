@@ -130,9 +130,20 @@
                     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
                     <script>
                         $('#Blog').summernote({
-                            placeholder: 'description...',
-                            tabsize: 2,
-                            height: 300
+                            placeholder: 'Add Blog Hare.........',
+                            tabsize:2,
+                            height: 400,
+                            toolbar: 
+                                    [
+                                        ['style', ['style']],
+                                        ['font', ['bold', 'underline', 'clear']],
+                                        ['color', ['color']],
+                                        ['fontsize', ['fontsize']],
+                                        ['para', ['ul', 'ol', 'paragraph']],
+                                        ['table', ['table']],
+                                        ['insert', ['link', 'picture', 'video']],
+                                        ['view', ['fullscreen', 'codeview']]
+                                    ]
                         });
                     </script>
                 </div>
