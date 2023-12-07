@@ -17,18 +17,16 @@ class BlogController extends Controller
     public function createBlog(Request $Req)
     {
         try {
-            // dd($Req->all())
             $rules = [
                 'Title' => 'required',
                 'Slug' => 'required',
-                'Image' => 'required|max:2024',
+                'Image' => 'required|image|mimes:webp|max:100',
                 'MetaTitle' => 'required',
                 'MetaDescription' => 'required',
                 'Category' => 'required',
                 'Excerpt' => 'required',
                 'Blog' => 'required',
             ]; 
-            // Validate
             $Req->validate($rules);         
             if ($Req->hasFile('Image')) {
                 $imageName =ImageManipulation::saveBlogImages($Req->file('Image'));

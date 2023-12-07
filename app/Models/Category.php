@@ -15,7 +15,7 @@ class Category extends Model
     ];
     /*
     |--------------------------------------------------------------------------
-    | Custom Helper Functions
+    | Helpers
     |--------------------------------------------------------------------------
     */
     public static function updateCategory(int $ID, string $Category)
