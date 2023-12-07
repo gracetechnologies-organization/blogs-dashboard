@@ -3,10 +3,8 @@
 namespace App\Http\Livewire\Employee\Blogs;
 
 use App\Models\Blog;
-use App\Models\User;
+use App\Models\Category;
 use Exception;
-use Illuminate\Support\Facades\Hash;
-use App\Services\ImageManipulation;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
@@ -48,7 +46,7 @@ class BlogsUnpublished extends Component
 
     public function mount()
     {
-        $this->Categories = Blog::getCategories();
+        $this->Categories = Category::getAll();
     }
 
     public function resetModal()

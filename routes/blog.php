@@ -20,7 +20,7 @@ Route::prefix('blog')->group(function () {
 
 Route::post('blog-create',[BlogController::class ,'createBlog'])->name('create.blog');
 Route::get('blog-edit-published/{ID}', [BlogController::class, 'editBlog'])->name('blogs.edit.published');
-Route::get('blog-edit-un-published/{ID}', [UnPublishedController::class, 'editBlog'])->name('blogs.edit.un.published');
+// Route::get('blog-edit-un-published/{ID}', [UnPublishedController::class, 'editBlog'])->name('blogs.edit.un.published');
 Route::post('blog-update-published/{ID}', [BlogController::class, 'updateBlog'])->name('update.blog');
 Route::post('blog-update-un-published/{ID}', [UnPublishedController::class, 'unPublishedUpdateBlog'])->name('update.un.published.blog');
 

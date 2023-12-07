@@ -3,12 +3,11 @@
 namespace App\Services;
 
 use Carbon\Carbon;
-use Illuminate\Http\Client\Request;
 use Illuminate\Http\UploadedFile;
 
 class ImageManipulation
 {
-    public static function getImgURL(UploadedFile $Image)
+    public static function getImgName(UploadedFile $Image)
     {
         $fileName = Carbon::now()->timestamp . "_" . $Image->getClientOriginalName();
         /*

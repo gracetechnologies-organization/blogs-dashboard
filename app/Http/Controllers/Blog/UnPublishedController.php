@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\Category;
 use App\Services\ImageManipulation;
 use Exception;
 use DOMDocument;
@@ -14,9 +15,9 @@ class UnPublishedController extends Controller
 {
     public function editBlog($ID)
     {
-        $updateType = 'Unpublished Blog Update';
+        $UpdateType = 'Unpublished Blog Update';
         $Data = Blog::find($ID);
-        $Categories = Blog::getCategories();
+        $Categories = Category::getAll();
         return view('livewire.employee.blogs.edit-ub-published-blog', compact('Data', 'Categories', 'updateType'));
     }
 

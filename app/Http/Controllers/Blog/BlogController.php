@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\Category;
 use App\Services\ImageManipulation;
 use DOMDocument;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class BlogController extends Controller
@@ -28,10 +27,9 @@ class BlogController extends Controller
                 'Blog' => 'required',
             ]; 
             $Req->validate($rules);         
-            if ($Req->hasFile('Image')) {
-                $imageName =ImageManipulation::saveBlogImages($Req->file('Image'));
-            }
-            
+
+            if ($Req->hasFile('Image')) $imageName = ImageManipulation::saveBlogImages($Req->file('Image'));
+
             $Blog = $Req->Blog;
             $dom = new DOMDocument();
             $Blog = preg_replace('/<wbr[^>]*>/', '', $Blog);
@@ -64,10 +62,10 @@ class BlogController extends Controller
 
     public function editBlog($id)
     {
-        $updateType = 'Published Blog Update';
         $Data = Blog::find($id);
-        $Categories = Blog::getCategories();
-        return view('livewire.employee.blogs.edit-published-blog', compact('Data', 'Categories', 'updateType'));
+        $Categories = Category::getAll();
+        $UpdateType = ($Data->status === 1) ? 'Update Published Blog' : 'Update Unpublished Blog'; 
+        return view('livewire.employee.blogs.edit-published-blog', compact('Data', 'Categories', 'UpdateType'));
     }
 
     public function updateBlog(Request $Req, $id)
@@ -108,18 +106,6 @@ class BlogController extends Controller
             $Slug = str_replace(' ', '-', $Req->Slug);
             $Status = ($Req->Status === null) ? 0 : 1;
             $Updated = Blog::updatePublishedBlog($id, $imageName, $Req->Title, $Slug, $Req->MetaTitle, $Req->MetaDescription, $Req->Category, $Status, $Req->Excerpt, $Blog);
-            //  Blog::where('id', $id)->update([
-            //     'image' => $imageName,
-            //     'title' => $Req->Title,
-            //     'slug' => $Req->Slug,
-            //     'meta_title' => $Req->MetaTitle,
-            //     'meta_description' => $Req->MetaDescription,
-            //     'cat_id' => $Req->Category,
-            //     'author_id' => auth()->user()->id,
-            //     'status' => $Status,
-            //     'excerpt' => $Req->Excerpt,
-            //     'blog' => $Blog
-            // ]);
             if ($Updated) {
                 return redirect()->route('blogs.published')->with('success', config('messages.UPDATION_SUCCESS'));
             } else {

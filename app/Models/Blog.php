@@ -38,11 +38,6 @@ class Blog extends Model
     | Helpers
     |--------------------------------------------------------------------------
     */
-    public static function getCategories()
-    {
-        return Category::all();
-    }
-
     public static function getUser()
     {
         return auth()->user()->id;
@@ -51,7 +46,7 @@ class Blog extends Model
     public static function getArchivedBlog(string $Search)
     {
         $AuthorID = self::getUser();
-        return self::onlyTrashed()
+        return self::onlyTrashed()->with('categories')
             ->where('title', 'like', '%' . $Search . '%')
             ->where('author_id', $AuthorID)
             ->paginate(6);

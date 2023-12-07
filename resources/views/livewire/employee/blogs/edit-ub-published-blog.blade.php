@@ -3,9 +3,9 @@
     <div class="row">
         <form method="POST" action="{{ route('update.un.published.blog', $Data->id) }}" enctype="multipart/form-data">
             <div class="col-12 col-sm-6 col-md-6">
-                @if ($updateType === 'Published Blog Update')
+                @if ($UpdateType === 'Published Blog Update')
                     <h1>Published Blog Update</h1>
-                @elseif ($updateType === 'Unpublished Blog Update')
+                @elseif ($UpdateType === 'Unpublished Blog Update')
                     <h1>Unpublished Blog Update</h1>
                 @endif
             </div>
@@ -75,7 +75,7 @@
                 <div class="row">
                     <div class="mb-3 col">
                         <label for="Excerpt" class="form-label">Category</label>
-                        <select  name="Category" class="py-3 form-select">
+                        <select name="Category" class="py-3 form-select">
                             <option selected>Category*</option>
                             @forelse($Categories as $Category)
                                 <option value="{{ $Category->id }}" selected>{{ $Category->name }}</option>
@@ -130,23 +130,20 @@
                     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
                     <script>
                         $('#Blog').summernote({
-                            // placeholder: 'description...',
-                            // tabsize: 2,
-                            // height: 300
                             placeholder: 'Add Blog Hare.........',
-                            tabsize:2,
+                            tabsize: 2,
                             height: 400,
-                            toolbar: 
-                                    [
-                                        ['style', ['style']],
-                                        ['font', ['bold', 'underline', 'clear']],
-                                        ['color', ['color']],
-                                        ['fontsize', ['fontsize']],
-                                        ['para', ['ul', 'ol', 'paragraph']],
-                                        ['table', ['table']],
-                                        ['insert', ['link', 'picture', 'video']],
-                                        ['view', ['fullscreen', 'codeview']]
-                                    ]
+                            toolbar: [
+                                ['style', ['style']],
+                                ['font', ['bold', 'underline', 'clear']],
+                                ['fontname', ['fontname']],
+                                ['color', ['color']],
+                                ['fontsize', ['fontsize']],
+                                ['para', ['ul', 'ol', 'paragraph']],
+                                ['table', ['table']],
+                                ['insert', ['link', 'picture', 'video']],
+                                ['view', ['fullscreen', 'codeview']]
+                            ]
                         });
                     </script>
                 </div>

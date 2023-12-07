@@ -30,14 +30,19 @@ class Category extends Model
 
     public static function getCategories()
     {
-        return Category::orderBy('created_at', 'desc')
+        return self::orderBy('created_at', 'desc')
             ->paginate(10, ['*'], 'categories_page');
     }
 
     public static function searchCategories(string $search)
     {
-        return Category::where('name', 'like', '%' . $search . '%')
+        return self::where('name', 'like', '%' . $search . '%')
             ->orderBy('created_at', 'desc')
             ->get();
+    }
+
+    public static function getAll()
+    {
+        return self::all();
     }
 }

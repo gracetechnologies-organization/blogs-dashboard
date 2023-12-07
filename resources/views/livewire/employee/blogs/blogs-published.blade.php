@@ -209,24 +209,24 @@
                         <div class="card-img-overlay custom-card-img-overlay d-flex flex-column">
                             <div class="card-body custom-card-body">
                                 <a href="{{ route('blogs.edit.published', $SingleIndex->id) }}">
-                                    <button type="button" class="btn btn-outline-info btn-sm">
+                                    <button type="button" class="btn btn-outline-info btn-sm" title="Edit">
                                         <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </a>
-                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" wire:click="renderDeleteModal({{ $SingleIndex->id }})">
+                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" wire:click="renderDeleteModal({{ $SingleIndex->id }})" title="Archive">
                                     <i class="fa-regular fa-box-archive"></i>
                                 </button>
                             </div>
                             <div class="card-footer custom-card-footer">
                                 <div class="media">
-                                    <img class="mr-3 rounded-circle" src="{{ asset('blog_images/' . $SingleIndex->image) }}" alt="{{ $SingleIndex->image }}" style="max-width:77px">
+                                        <img class="mr-3 rounded-circle" src="{{ asset('blog_images/' . $SingleIndex->image) }}" alt="{{ $SingleIndex->image }}" style="max-width:77px">
                                     <div class="media-body">
                                         <h4 class="my-0 d-block" title="{{ $SingleIndex->title }}">
                                             <a href="{{ route('blogs.render', $SingleIndex->id) }}" class="text-white">
                                                 {{ Str::limit($SingleIndex->title, 25) }}
                                             </a>
                                         </h4>
-                                        <small>{{ $SingleIndex->categories->name }}</small> <br>
+                                        <small>{{ $SingleIndex->categories->name }}</small><br>
                                         <small>
                                             <i class="far fa-clock"></i> Posted At: {{ $SingleIndex->created_at }}
                                         </small>

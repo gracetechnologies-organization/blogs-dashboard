@@ -2,10 +2,7 @@
 
 namespace App\Http\Livewire\Employee\Blogs;
 
-use App\Models\Blog;
-use App\Services\ImageManipulation;
-use Exception;
-use Illuminate\Http\Request;
+use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -36,7 +33,7 @@ class CreateBlogs extends Component
 
     public function mount()
     {
-        $this->Categories = Blog::getCategories();
+        $this->Categories = Category::getAll();
     }
 
     // public function updated($PropertyName)
