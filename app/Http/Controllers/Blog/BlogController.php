@@ -4,21 +4,32 @@ namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\Category;
+use App\Services\ImageManipulation;
 use DOMDocument;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class BlogController extends Controller
 {
     public function createBlog(Request $Req)
     {
         try {
-            if ($Req->hasFile('Image')) {
-                $Image = $Req->file('Image');
-                $imageName = time() . '.' . $Image->getClientOriginalExtension();
-                $Image->move(public_path('storage/blog_images'), $imageName);
-            }
-            $Status = ($Req->Status === null) ? 0 : 1;
+            $rules = [
+                'Title' => 'required',
+                'Slug' => 'required',
+                'Image' => 'required|image|mimes:webp|max:100',
+                'MetaTitle' => 'required',
+                'MetaDescription' => 'required',
+                'Category' => 'required',
+                'Excerpt' => 'required',
+                'Blog' => 'required',
+            ]; 
+            $Req->validate($rules);         
+
+            if ($Req->hasFile('Image')) $imageName = ImageManipulation::saveBlogImages($Req->file('Image'));
+
             $Blog = $Req->Blog;
             $dom = new DOMDocument();
             $Blog = preg_replace('/<wbr[^>]*>/', '', $Blog);
@@ -32,12 +43,17 @@ class BlogController extends Controller
                 $img->setAttribute('src', $image_name);
             }
             $Blog = $dom->saveHTML();
-            $Inserted = Blog::insertBlog($imageName, $Req->Title, $Req->MetaTitle, $Req->MetaDescription, $Req->Category, $Status, $Req->Excerpt, $Req->Blog);
+            $Slug = str_replace(' ', '-', $Req->Slug);
+            $Status = ($Req->Status === null) ? 0 : 1;
+            $Inserted = Blog::insertBlog($imageName, $Req->Title, $Slug, $Req->MetaTitle, $Req->MetaDescription, $Req->Category, $Status, $Req->Excerpt, $Req->Blog);
             if ($Inserted) {
-                return redirect()->route('blogs.create')->with('success', config('messages.INSERTION_SUCCESS'));
+                return redirect()->back()->with('success', config('messages.INSERTION_SUCCESS'));
             } else {
                 return redirect()->back()->with('success', config('messages.INSERTION_FAILED'));
             }
+        } catch (ValidationException $error) {
+            // Handle validation errors
+            return redirect()->back()->withErrors($error->errors())->withInput();
         } catch (Exception $error) {
             report($error);
             session()->flash('error', config('messages.INVALID_DATA'));
@@ -46,20 +62,30 @@ class BlogController extends Controller
 
     public function editBlog($id)
     {
-        $updateType = 'Published Blog Update';
         $Data = Blog::find($id);
-        $Categories = Blog::getCategories();
-        return view('livewire.employee.blogs.edit-published-blog', compact('Data', 'Categories', 'updateType'));
+        $Categories = Category::getAll();
+        $UpdateType = ($Data->status === 1) ? 'Update Published Blog' : 'Update Unpublished Blog'; 
+        return view('livewire.employee.blogs.edit-published-blog', compact('Data', 'Categories', 'UpdateType'));
     }
 
     public function updateBlog(Request $Req, $id)
     {
         try {
+            $rules = [
+                'Image' => 'image|mimes:png,jpeg,jpg,bmp,gif,svg,webp|max:2024',
+                'Title' => 'required',
+                'Slug' => 'required',
+                'MetaTitle' => 'required',
+                'MetaDescription' => 'required',
+                'Category' => 'required',
+                'Excerpt' => 'required',
+                'Blog' => 'required',
+            ];
+            // Validate
+            $Req->validate($rules);
             $existingBlog = Blog::find($id);
             if ($Req->hasFile('Image')) {
-                $Image = $Req->file('Image');
-                $imageName = time() . '.' . $Image->getClientOriginalExtension();
-                $Image->move(public_path('storage/blog_images'), $imageName);
+                $imageName =ImageManipulation::saveBlogImages($Req->file('Image'));
             } else {
                 $imageName = $existingBlog->image;
             }
@@ -76,24 +102,18 @@ class BlogController extends Controller
                 $img->removeAttribute('src');
                 $img->setAttribute('src', $image_name);
             }
-
             $Blog = $dom->saveHTML();
-            $Updated = Blog::where('id', $id)->update([
-                'image' => $imageName,
-                'title' => $Req->Title,
-                'meta_title' => $Req->MetaTitle,
-                'meta_description' => $Req->MetaDescription,
-                'cat_id' => $Req->Category,
-                'author_id' => auth()->user()->id,
-                'status' => $Req->Status === 1 ? 1 : 0,
-                'excerpt' => $Req->Excerpt,
-                'blog' => $Blog
-            ]);
+            $Slug = str_replace(' ', '-', $Req->Slug);
+            $Status = ($Req->Status === null) ? 0 : 1;
+            $Updated = Blog::updatePublishedBlog($id, $imageName, $Req->Title, $Slug, $Req->MetaTitle, $Req->MetaDescription, $Req->Category, $Status, $Req->Excerpt, $Blog);
             if ($Updated) {
-                return redirect()->back()->with('success', config('messages.UPDATION_SUCCESS'));
+                return redirect()->route('blogs.published')->with('success', config('messages.UPDATION_SUCCESS'));
             } else {
                 return redirect()->back()->with('error', config('messages.UPDATION_FAILED'));
             }
+        } catch (ValidationException $error) {
+            // Handle validation errors
+            return redirect()->back()->withErrors($error->errors())->withInput();
         } catch (Exception $error) {
             report($error);
             session()->flash('error', config('messages.INVALID_DATA'));

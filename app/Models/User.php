@@ -65,7 +65,7 @@ class User extends Authenticatable implements JWTSubject
     }
     /*
     |--------------------------------------------------------------------------
-    | Custom Helper Functions
+    | Helpers
     |--------------------------------------------------------------------------
     */
     public static function getEmployees(string $search)

@@ -20,6 +20,7 @@ class BlogFactory extends Factory
         return [
             'image' => $this->faker->imageUrl(),
             'title' => $this->faker->sentence,
+            'slug' => 'demo-slug',
             'meta_title' => $this->faker->sentence,
             'cat_id' => Category::inRandomOrder()->first()->id,
             'status' => 1,

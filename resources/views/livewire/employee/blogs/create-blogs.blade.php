@@ -24,7 +24,6 @@
             </div>
         </div>
     @endif
-    <div class="container-fliud">
         <div class="row">
             <div class="col-12 col-sm-6 col-md-6">
                 <h1>Create Blog</h1>

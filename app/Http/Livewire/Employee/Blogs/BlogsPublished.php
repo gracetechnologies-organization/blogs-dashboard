@@ -2,11 +2,9 @@
 
 namespace App\Http\Livewire\Employee\Blogs;
 
-use App\Models\User;
 use App\Models\Blog;
+use App\Models\Category;
 use Exception;
-use Illuminate\Support\Facades\Hash;
-use App\Services\ImageManipulation;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
@@ -50,7 +48,7 @@ class BlogsPublished extends Component
 
     public function mount()
     {
-        $this->Categories = Blog::getCategories();
+        $this->Categories = Category::getAll();
     }
 
     public function resetModal()
@@ -72,85 +70,10 @@ class BlogsPublished extends Component
         $this->resetValidation();
     }
 
-    public function renderEditModal($ID)
-    {
-        $Data = Blog::find($ID);
-        if ($Data) {
-            $this->BlogID = $Data->id;
-            // $this->$Image = $Data->image;
-            $this->Title = $Data->title;
-            $this->MetaTitle = $Data->meta_title;
-            $this->MetaDescription = $Data->meta_description;
-            $this->Category = $Data->cat_id;
-            $this->Status = $Data->status;
-            $this->Excerpt = $Data->excerpt;
-            $this->Blog = $Data->blog;
-        } else {
-            return redirect()->to(route('admin.employees'))->with('error', 'Record Not Found.');
-        }
-    }
-
     public function renderDeleteModal($id)
     {
         $this->BlogID = $id;
     }
-
-    public function updateImage()
-    {
-        $this->validateOnly('Image');
-        try {
-            $Image = ImageManipulation::getImgURL($this->Image);
-            $updated = Blog::where('id', '=', $this->BlogID)
-                ->update(['image' =>  $Image]);
-            sleep(1);
-            if ($updated) {
-                session()->flash('success', config('messages.UPDATION_SUCCESS'));
-            } else {
-                session()->flash('error', config('messages.UPDATION_FAILED'));
-            }
-        } catch (Exception $error) {
-            report($error);
-            session()->flash('error', config('messages.INVALID_DATA'));
-        }
-    }
-
-    public function edit()
-    {
-        $this->validate();
-        if (!$this->BlogID) {
-            session()->flash('error', 'Record Not Found.');
-            return;
-        }
-        try {
-
-            // Check if the Image property is updated
-            if ($this->Image) {
-                // Process image update here, e.g., move the uploaded file and update the database
-                // Make sure to update the 'image' column in the database with the new image path
-                // $updatedData['image'] = 'new_image_path_here';
-            }
-            $UpDated = Blog::updateUnpublished(
-                (int)$this->BlogID,
-                $this->Title,
-                $this->MetaTitle,
-                $this->MetaDescription,
-                $this->Category,
-                $this->Status,
-                $this->Excerpt,
-                $this->Blog
-            );
-            if ($UpDated) {
-                session()->flash('success', config('messages.UPDATION_SUCCESS'));
-            } else {
-                session()->flash('error', config('messages.UPDATION_FAILED'));
-            }
-        } catch (Exception $error) {
-            report($error);
-            session()->flash('error', config('messages.INVALID_DATA'));
-        }
-        $this->resetModal();
-    }
-
 
     public function destroy()
     {

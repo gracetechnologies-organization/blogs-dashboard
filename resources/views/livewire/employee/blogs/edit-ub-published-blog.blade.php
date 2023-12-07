@@ -1,9 +1,13 @@
 @include('components.blog-main-header')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
-        <form method="POST" action="{{ route('update.blog', $Data->id) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('update.un.published.blog', $Data->id) }}" enctype="multipart/form-data">
             <div class="col-12 col-sm-6 col-md-6">
-                <h1> {{ $UpdateType }} </h1>
+                @if ($UpdateType === 'Published Blog Update')
+                    <h1>Published Blog Update</h1>
+                @elseif ($UpdateType === 'Unpublished Blog Update')
+                    <h1>Unpublished Blog Update</h1>
+                @endif
             </div>
             @csrf
             <div class="modal-body">

@@ -15,9 +15,14 @@ class Category extends Model
     ];
     /*
     |--------------------------------------------------------------------------
-    | Custom Helper Functions
+    | Helpers
     |--------------------------------------------------------------------------
     */
+    public static function updateCategory(int $ID, string $Category)
+    {
+       return self::where('id', '=', $ID)->update(['name'=>$Category]);
+    }
+
     public static function deleteCategory(int $ID)
     {
         return self::find($ID)->forceDelete();
@@ -25,14 +30,19 @@ class Category extends Model
 
     public static function getCategories()
     {
-        return Category::orderBy('created_at', 'desc')
+        return self::orderBy('created_at', 'desc')
             ->paginate(10, ['*'], 'categories_page');
     }
 
     public static function searchCategories(string $search)
     {
-        return Category::where('name', 'like', '%' . $search . '%')
+        return self::where('name', 'like', '%' . $search . '%')
             ->orderBy('created_at', 'desc')
             ->get();
+    }
+
+    public static function getAll()
+    {
+        return self::all();
     }
 }

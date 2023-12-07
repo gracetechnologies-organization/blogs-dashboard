@@ -7,7 +7,7 @@ use Illuminate\Http\UploadedFile;
 
 class ImageManipulation
 {
-    public static function getImgURL(UploadedFile $Image)
+    public static function getImgName(UploadedFile $Image)
     {
         $fileName = Carbon::now()->timestamp . "_" . $Image->getClientOriginalName();
         /*
@@ -19,4 +19,16 @@ class ImageManipulation
         return $fileName;
     }
 
+    public static function saveBlogImages(UploadedFile $Image)
+    {
+        $fileName = Carbon::now()->timestamp . "_" . $Image->getClientOriginalName();
+        /*
+        |--------------------------------------------------------------------------
+        | Save the image to the default storage path "storage/app/public/images"
+        |--------------------------------------------------------------------------
+        */
+        $Image->move(public_path('blog_images'), $fileName);
+
+        return $fileName;
+    }
 }

@@ -1,13 +1,10 @@
 <div class="modal-body">
     <div class="row">
-        <div class="mb-3 col">
-
-        </div>
     </div>
     <div class="row">
         <div class="mb-3 col">
             <label for="Image" class="form-label">Upload Image*</label>
-            <input type="file" name="Image" placeholder="Enter Upload Image" wire:model.defer="Image" class="form-control">
+            <input type="file" name="Image" placeholder="Enter Upload Image" class="form-control" value="{{old('Image')}}">
             <small class="text-danger">
                 @error('Image')
                     {{ $message }}
@@ -18,18 +15,29 @@
     <div class="row">
         <div class="mb-3 col">
             <label for="Title" class="form-label">Title</label>
-            <input type="text" name="Title" placeholder="Enter Blog Title" wire:model.defer="Title" class="form-control">
+            <input type="text" name="Title" placeholder="Enter Blog Title" value="{{old('Title')}}" class="form-control"> 
             <small class="text-danger">
                 @error('Title')
                     {{ $message }}
                 @enderror
-            </small>
+            </small>         
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col">
+            <label for="Slug" class="form-label">Slug</label>
+            <input type="text" name="Slug" placeholder="Enter Blog Slug" value="{{old('Slug')}}" class="form-control"> 
+            <small class="text-danger">
+                @error('Slug')
+                    {{ $message }}
+                @enderror
+            </small>         
         </div>
     </div>
     <div class="row">
         <div class="mb-3 col">
             <label for="MetaTitle" class="form-label">Meta Title</label>
-            <input type="text" placeholder="Enter Blog Mete Title" name="MetaTitle" wire:model.defer="MetaTitle" class="form-control">
+            <input type="text" placeholder="Enter Blog Mete Title" name="MetaTitle" value="{{old('MetaTitle')}}" wire:model.defer="MetaTitle" class="form-control">
             <small class="text-danger">
                 @error('MetaTitle')
                     {{ $message }}
@@ -40,7 +48,7 @@
     <div class="row">
         <div class="mb-3 col">
             <label for="MetaDescription" class="form-label">Meta Description</label>
-            <input type="text" placeholder="Enter Blog Mete Title" name="MetaDescription" wire:model.defer="MetaDescription" class="form-control">
+            <input type="text" placeholder="Enter Blog Mete Title" name="MetaDescription" value="{{old('MetaDescription')}}" class="form-control">
             <small class="text-danger">
                 @error('MetaDescription')
                     {{ $message }}
@@ -51,7 +59,7 @@
     <div class="row">
         <div class="mb-3 col">
             <label for="Excerpt" class="form-label">Category</label>
-            <select wire:model.defer="Category" name="Category" class="py-3 form-select">
+            <select  name="Category" class="py-3 form-select">
                 <option selected value="">Category*</option>
                 @forelse($Categories as $Category)
                     <option value="{{ $Category->id }}" selected>{{ $Category->name }}</option>
@@ -59,13 +67,18 @@
                     <option value="" disabled>No Data</option>
                 @endforelse
             </select>
+            <small class="text-danger">
+                @error('Category')
+                    {{ $message }}
+                @enderror
+            </small>
         </div>
     </div>
     <div class="row">
         <div class="mb-3 col">
             <p class="form-label">Status</p>
             <div class="checkbox">
-                <input type="checkbox" name="Status" value="1">&nbsp;&nbsp;<span>Published</span>
+                <input type="checkbox" name="Status" value="1">&nbsp;&nbsp;<span>Published</span><br>
                 <small class="text-danger">
                     @error('Status')
                         {{ $message }}
@@ -77,7 +90,7 @@
     <div class="row">
         <div class="mb-3 col">
             <label for="Excerpt" class="form-label">Excerpt</label>
-            <input type="text" name="Excerpt" placeholder="Enter Blog Excerpt" wire:model.defer="Excerpt" class="form-control">
+            <input type="text" name="Excerpt" placeholder="Enter Blog Excerpt" class="form-control">
             <small class="text-danger">
                 @error('Excerpt')
                     {{ $message }}

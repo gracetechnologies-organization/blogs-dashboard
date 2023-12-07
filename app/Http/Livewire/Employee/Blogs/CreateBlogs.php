@@ -2,10 +2,7 @@
 
 namespace App\Http\Livewire\Employee\Blogs;
 
-use App\Models\Blog;
-use App\Services\ImageManipulation;
-use Exception;
-use Illuminate\Http\Request;
+use App\Models\Category;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -23,42 +20,25 @@ class CreateBlogs extends Component
         $Blog,
         $Categories = '';
 
-    protected $rules = [
-        'Image' => 'required|Image|mimes:jpeg,png,jpg,gif,svg,webp|max:2024',
-        'Title' => 'required|string|unique:blogs,title|max:180',
-        'MetaTitle' => 'required|string',
-        'MetaDescription' => 'required|string',
-        'Category' => 'required|integer|numeric',
-        'Status' => 'required',
-        'Excerpt' => 'required|string',
-        'Blog' => 'required|string',
-    ];
+    // protected $rules = [
+    //     'Image' => 'required|Image|mimes:jpeg,png,jpg,gif,svg,webp|max:2024',
+    //     'Title' => 'required|string|unique:blogs,title|max:180',
+    //     'MetaTitle' => 'required|string',
+    //     'MetaDescription' => 'required|string',
+    //     'Category' => 'required|integer|numeric',
+    //     'Status' => 'required',
+    //     'Excerpt' => 'required|string',
+    //     'Blog' => 'required|string',
+    // ];
 
     public function mount()
     {
-        $this->Categories = Blog::getCategories();
+        $this->Categories = Category::getAll();
     }
 
-    public function updated($PropertyName)
-    {
-        $this->validateOnly($PropertyName);
-    }
-
-    // public function savePost(Request $Req)
+    // public function updated($PropertyName)
     // {
-    //     $this->validate();
-    //     try {
-    //         $Image = ImageManipulation::getImgURL($this->Image);
-    //         $Inserted = Blog::insertBlog($Image, $this->Title, $this->MetaTitle, $this->MetaDescription, $this->Category, $this->Status, $this->Excerpt, $this->Blog);
-    //         if ($Inserted) {
-    //             session()->flash('success', config('messages.INSERTION_SUCCESS'));
-    //         } else {
-    //             session()->flash('error', config('messages.INSERTION_FAILED'));
-    //         }
-    //     } catch (Exception $error) {
-    //         report($error);
-    //         session()->flash('error', config('messages.INVALID_DATA'));
-    //     }
+    //     $this->validateOnly($PropertyName);
     // }
 
     public function render()
