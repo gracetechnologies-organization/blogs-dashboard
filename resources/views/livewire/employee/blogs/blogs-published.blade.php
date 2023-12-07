@@ -204,7 +204,6 @@
     <div class="container">
         <div class="row">
             @forelse ($Data as $SingleIndex)
-            {{-- @dd($SingleIndex) --}}
                 <div class="mb-4 col-sm-12 col-md-6 col-lg-4">
                     <div class="text-white card custom-card custom-card-has-bg" style="background-image:url('{{ asset('blog_images/' . $SingleIndex->image) }}');">
                         <div class="card-img-overlay custom-card-img-overlay d-flex flex-column">
@@ -222,7 +221,7 @@
                                 <div class="media">
                                     <img class="mr-3 rounded-circle" src="{{ asset('blog_images/' . $SingleIndex->image) }}" alt="{{ $SingleIndex->image }}" style="max-width:77px">
                                     <div class="media-body">
-                                        <h4 class="my-0 d-block">
+                                        <h4 class="my-0 d-block" title="{{ $SingleIndex->title }}">
                                             <a href="{{ route('blogs.render', $SingleIndex->id) }}" class="text-white">
                                                 {{ Str::limit($SingleIndex->title, 25) }}
                                             </a>
