@@ -1,4 +1,4 @@
-@include('components.blog-main-header')
+{{-- @include('components.blog-main-header')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <form method="POST" action="{{ route('update.un.published.blog', $Data->id) }}" enctype="multipart/form-data">
@@ -162,4 +162,4 @@
         </form>
     </div>
 </div>
-@include('javascript_files.custom-scripts')
+@include('javascript_files.custom-scripts') --}}

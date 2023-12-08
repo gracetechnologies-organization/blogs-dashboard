@@ -17,9 +17,9 @@ class BlogController extends Controller
     {
         try {
             $rules = [
+                'Image' => 'required|image|mimes:webp|max:100',
                 'Title' => 'required',
                 'Slug' => 'required',
-                'Image' => 'required|image|mimes:webp|max:100',
                 'MetaTitle' => 'required',
                 'MetaDescription' => 'required',
                 'Category' => 'required',
@@ -72,7 +72,7 @@ class BlogController extends Controller
     {
         try {
             $rules = [
-                'Image' => 'image|mimes:png,jpeg,jpg,bmp,gif,svg,webp|max:2024',
+                'Image' => 'required|image|mimes:webp|max:100',
                 'Title' => 'required',
                 'Slug' => 'required',
                 'MetaTitle' => 'required',

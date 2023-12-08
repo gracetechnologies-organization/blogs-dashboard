@@ -111,37 +111,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group">
-                        <label for="Blog">Blog</label>
-                        <textarea class="form-control" name="Blog" id="Blog" cols="30" rows="10">
-                        {{ $Data->blog }}
-                        </textarea>
-                        <small class="text-danger">
-                            @error('Blog')
-                                {{ $message }}
-                            @enderror
-                        </small>
-                    </div>
-                    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-                    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-                    <script>
-                        $('#Blog').summernote({
-                            placeholder: 'Add Blog Hare.........',
-                            tabsize: 2,
-                            height: 400,
-                            toolbar: [
-                                ['style', ['style']],
-                                ['font', ['bold', 'underline', 'clear']],
-                                ['fontname', ['fontname']],
-                                ['color', ['color']],
-                                ['fontsize', ['fontsize']],
-                                ['para', ['ul', 'ol', 'paragraph']],
-                                ['table', ['table']],
-                                ['insert', ['link', 'picture', 'video']],
-                                ['view', ['fullscreen', 'codeview']]
-                            ]
-                        });
-                    </script>
+                    @include('components.text-editer')
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" wire:click="resetModal">
