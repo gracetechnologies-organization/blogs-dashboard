@@ -72,7 +72,7 @@ class BlogController extends Controller
     {
         try {
             $rules = [
-                'Image' => 'required|image|mimes:webp|max:100',
+                'Image' => 'image|mimes:webp|max:100',
                 'Title' => 'required',
                 'Slug' => 'required',
                 'MetaTitle' => 'required',
